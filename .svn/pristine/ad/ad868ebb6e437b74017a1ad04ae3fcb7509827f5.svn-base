@@ -1,0 +1,58 @@
+page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+}
+.longin{
+  text-align: center;
+  margin-bottom: 10rpx;
+  font-size: 30rpx;
+}
+.userinfo{
+  width: 100%;
+  position: absolute;
+  top: 40%;
+}
+.getUserInfo{
+    color: white;
+    font-weight: normal;
+    background: #21A011;
+    margin-top: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    line-height: 20px;
+}
+.getUserInfo2{
+    color: white;
+    font-weight: normal;
+    background: #b3b3b3;
+    margin-top: 10px;
+}
+button:not([size='mini']) {
+    width: 80%;
+}
+.logoimg{
+  position: absolute;
+  top: 24%;
+  left:50%;
+  width: 162px;
+  height: 51px;
+  transform: translateX(-50%)
+}
+.logoText{
+  font-size: 13px;
+  color:gray;
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translateX(-50%)
+}
+.cancel{
+  /* color: #21A011; */
+  font-weight: normal;
+  background: white;
+  margin-top: 20px;
+  border-radius: 10px;
+  font-size: 14px;
+}

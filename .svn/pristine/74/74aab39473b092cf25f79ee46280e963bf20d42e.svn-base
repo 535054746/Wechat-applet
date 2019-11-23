@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-stepper": "../../compontent/stepper/index"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundColor":"#d3d3d3"
+}

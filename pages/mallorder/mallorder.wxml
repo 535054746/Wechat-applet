@@ -1,0 +1,89 @@
+<view class="contatin">
+  <view class="header">
+
+    <view class="address" wx:if="{{!address}}" bindtap="selectAddress">
+      <image src="../../imgs/bi.png" class="imgbi"></image>
+      <view class="flex-row ">
+        <view style="font-size:14px">选择收货地址</view>
+        <view class="right">
+          <image src="../../imgs/arrow.png"></image>
+        </view> 
+      </view>
+    </view>
+    
+    <view wx:else bindtap="selectAddress">
+    <view wx:if="{{!addressChild}}">
+        <view class="dz">{{address.address}}</view>
+        <view class="dz_info">
+          <text>{{address.name}}</text>
+          <text>{{address.phone}}</text>
+        </view>
+    </view>
+    <view  wx:else>
+        <view class="dz">{{addressChild.address}}</view>
+        <view class="dz_info">
+          <text>{{addressChild.name}}</text>
+          <text>{{addressChild.phone}}</text>
+        </view>
+    </view>
+    </view>
+    <view>
+      <image src="../../imgs/line.png" class="lineImg"></image>
+    </view>
+  </view>
+
+  <view class="content">
+      <view class="shopInfo" wx:for="{{shopInfo}}" wx:key ="*this">
+        <view class="shopInfo_left">
+          <!-- <image src="../../imgs/img_placeholder.png" bindtap="viewImg"></image> -->
+            <image src="{{item.picUrl}}" class="img" wx:if="{{item.picUrl}}" bindtap="viewImg" data-img="{{item.picUrl}}"></image>
+            <image src="../../imgs/img_placeholder.png" class="img" wx:else></image>
+        </view>
+        <view class="shopInfo_right">
+          <view>
+            <view style="font-size:16px">{{item.itemName}}</view>
+            <view class="shopspecif">规格：{{item.specification}}</view>         
+          </view>
+          <view style="text-align: right">
+            <view>共{{item.qty}}{{item.assistantUnit}}</view>
+            <view>单价：￥{{item.unitPrice/100}}</view>
+            <view>金额：￥{{item.amount}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="shop_footer">
+        <view class="zmonery">合计：￥{{totalAmount}}</view>
+      </view>
+  </view>
+
+    <view class="zf_fs">
+      <text class="zf_txt">支付方式</text>
+      <view class="zf_footer">
+        <view>
+          <image src="../../imgs/wxplay.png" class="wximg"></image>
+        </view>
+        <view class="txt">
+
+          <view>
+            <view>微信支付</view>
+            <view>亿万用户的选择，更快更安全</view> 
+          </view>
+        </view>
+
+        <view class="checkbox">
+            <radio-group bindchange="checkboxChange" size="18">
+              <label class="checkbox">
+                <radio/>
+              </label>
+            </radio-group>
+        </view>
+
+
+      </view>
+    </view>
+    <view class="addres_footer">
+        <view class="monery_footer">待支付：<text>￥{{totalAmount}}</text></view>
+        <view class="monery_btn" bindtap="createOrder" data-name="{{address.name}}" data-phone="{{address.phone}}"  data-address="{{address.address}}" wx:if="{{payType==1}}">去支付</view>
+        <view class="monery_btn disabled" wx:else>去支付</view>
+    </view>
+</view>

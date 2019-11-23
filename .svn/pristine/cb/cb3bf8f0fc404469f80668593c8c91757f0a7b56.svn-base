@@ -1,0 +1,61 @@
+<view class="main">
+    <view class="search-box">
+        <input class="search-input" placeholder="请输入商品名称" value="{{value}}" bindinput="searchInput" placeholder-style="font-size: 14px"/>
+        <icon class="weui-icon-search_in-box search-icon" type="search" size="14" ></icon>
+        <icon class="cancel " type="cancel" size="14" bindtap="inputTxt" wx:if="{{showKeywords}}"></icon>
+        <view class="search-btn" bindtap="searBtn" size="mini" wx:if="{{!shopStatus}}">搜索</view>
+        <view class="search-img" size="mini" wx:else>
+          <view class="txt" hidden="{{cartList.length == 0}}">
+          {{cartList.length}}
+          </view>
+          <image src="../../imgs/gouwuche.png" bindtap="gwc"></image>
+        </view>
+    </view>
+    <view  wx:if="{{shopStatus}}">
+        <view wx:for="{{shopList}}" wx:key="*this" class="flex shopList">
+          <view class="img_content">
+            <image src="{{item.picUrl}}" class="img" wx:if="{{item.picUrl}}"></image>
+            <image src="../../imgs/img_placeholder.png" class="img" wx:else></image>       
+          </view>
+
+          <view class="flex-row">
+              <view class="flex-column"> 
+                <text style="font-size: 16px">{{item.itemName}}</text>
+                <text class="shopspecif">规格：{{item.specification}}</text>
+              </view>
+
+              <view class="flex-column carName">
+                  <view class="shopPrice shopRight">￥{{item.unitPrice / 100}}元 / {{item.warehouseUnit}}</view>
+                  <view class="stepper carSte shopRight">
+                  <van-stepper v-model="{{item.qty}}" value="{{item.qty}}" step="1" min="0" data-index="{{index}}" data-id="{{item.id}}" integer bind:change="onItemChange" />
+                </view>
+              </view>
+          </view>
+        </view>
+    </view>
+
+    <view wx:else class="history_search" hidden="{{showKeywords}}">
+      <view class="his_title">
+        <view>历史搜索</view> 
+        <view>
+            <view bindtap="clearhistory" hidden="{{history.length == 0}}" class="clearhistory">清空</view>
+        </view>
+      </view>
+      <view class="history" wx:if="{{history.length != 0}}">
+        <view class="history_text" wx:for="{{history}}" wx:key="index" data-text="{{item}}" bindtap="keywordHandle">
+            {{item}}
+        </view>
+      </view>
+      <view wx:else class="empty-history">
+        历史搜索空空如也~
+      </view>
+    </view>
+
+    <view wx:if="{{stashop}}"  class="noShop" hidden="{{!showKeywords}}">
+        <image src="../../imgs/empty_icon.png"></image>
+        <view style="margin-top:10px">{{errorMsg}}</view>
+        <navigator url="/pages/shop/shop" open-type="switchTab" class="carSwitchBtn">
+          去购买商品
+        </navigator>
+    </view>
+</view>

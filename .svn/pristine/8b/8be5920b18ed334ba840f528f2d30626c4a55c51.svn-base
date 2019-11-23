@@ -1,0 +1,15 @@
+page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.longin{
+  text-align: center;
+  margin-bottom: 10rpx;
+  font-size: 30rpx;
+}
+.getUserInfo{
+    color: white;
+    font-weight: normal;
+    background: #38a3ff;
+}

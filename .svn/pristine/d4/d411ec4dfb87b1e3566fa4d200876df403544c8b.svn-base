@@ -1,0 +1,166 @@
+.contatin{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+}
+.header{
+  /* height: 70px; */
+  width: 97%;
+  background: white;
+  margin: 8px auto;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 6px;
+}
+.address{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 16px;
+  position: relative;
+}
+.imgbi{ 
+  width: 25px;
+  height: 25px;
+}
+.right{
+  display: inline-block;
+  margin-right: 0px;
+}
+.content{
+  width: 97%;
+  background: white;
+  margin: 3px auto;
+  border-radius: 5px;
+  position: relative;
+}
+.shopInfo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 14px;
+  border: 1px solid #f4f4f4;
+  width: 94%;
+  margin: 10px auto;
+  border-radius: 5px 
+}
+.shopInfo_left{
+  padding-left: 4px;
+  width: 70px;
+}
+.shopInfo_left image {
+  width: 60px;
+  height: 60px;
+  margin: 7px;
+}
+.shopInfo_right {
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.shop_footer{
+  width: 94%;
+  height: 40px;
+  position: relative;
+  /* border: 1px solid; */
+  margin: 0 auto
+}
+.zmonery{
+  position: absolute;
+  bottom: 4px;
+  right: 1px;
+  font-size: 18px;
+  color: #f60;
+}
+.zf_fs{
+  width: 97%;
+  background: white;
+  border-radius: 5px;
+  margin: 10px auto 70px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: relative;
+}
+.zf_txt{
+  display: inline-block;
+  font-size: 16px;
+  /* margin: 5px; */
+  margin-left: 6px
+}
+.wximg{
+  width: 20px;
+  height: 20px;
+  margin-top: 18px;
+}
+.zf_footer{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  margin-left: 10px
+}
+.txt{
+  margin-top: 10px;
+  margin-left: 6px;
+}
+.txt :nth-child(1) {
+  font-size: 16px;
+}
+.txt :nth-child(2) {
+  font-size: 14px;
+  color: #b3b3b3
+}
+.addres_footer{
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  border-top: 1px solid #d3d3d3;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+}
+.monery_footer{
+  font-size: 15px;
+  margin: 10px;
+}
+.monery_footer text {
+  color: #f60;
+  font-size: 18px
+}
+.monery_btn{
+  width: 50px;
+  height: 20px;
+  /* border: 1px solid; */
+  margin-right: 10px;
+  padding: 13px;
+  background: #f60;
+  color: white;
+  border-radius:5px;
+}
+.dz{
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 20px
+}
+.dz_info{
+  font-size: 15px;
+  color: #d3d3d3;
+  margin-top: 4px;
+  margin-left: 28px;
+}
+/* .address{
+  height: 100%;
+} */
+
+.checkbox{
+  position: absolute;
+  right: 4px;
+  top: 18px;
+}

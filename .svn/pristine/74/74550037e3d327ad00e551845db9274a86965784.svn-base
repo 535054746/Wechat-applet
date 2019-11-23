@@ -1,0 +1,43 @@
+<view>
+  <view class="item-block">
+    <text class="item-title">收货人</text>
+    <input id="receiveName" class="item-input flex-row" value="{{receiveName}}" placeholder="请填写收货人的姓名" maxlength="10" bindinput="bindInput" />
+  </view>
+
+  <view class="item-block">
+    <text class="item-title">手机号码</text>
+    <input id="moblie" class="item-input flex-row" type="number" value="{{moblie}}" placeholder="请填写收货人的电话号码" bindinput="bindInput" maxlength="15" />
+  </view>
+
+  <view class="item-block">
+    <text class="item-title">省份</text>
+    <view class="section flex-row">
+      <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view class="picker">
+          <text wx:if="{{region.length==0}}">请选择省份</text>
+          <text wx:else style="color: #333333;">{{region[0]}}-{{region[1]}}-{{region[2]}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+
+  <view class="item-block">
+    <text class="item-title">收货地址</text>
+    <input id="address" class="item-input flex-row" value="{{address}}" placeholder="请填写街道、门牌号的信息" bindinput="bindInput"></input>
+  </view>
+
+  <checkbox-group class="radio" bindchange="onCheckedChange">
+    <checkbox class="radio" checked="{{defaultAddress}}">
+      <text>设为默认地址</text>
+    </checkbox>
+  </checkbox-group>
+
+  <view hidden="{{id == ''}}" class="address_footerbtn" style="bottom: 45px" bindtap="delAddress">
+    <view style="background: #b3b3b3">删除地址</view>
+  </view>
+
+  <view class="address_footerbtn" bindtap="saveAddress">
+    <view>保存并使用</view>
+  </view>
+</view>

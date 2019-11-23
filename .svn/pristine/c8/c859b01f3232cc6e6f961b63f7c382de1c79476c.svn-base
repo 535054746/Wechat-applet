@@ -1,0 +1,32 @@
+page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.longin{
+  text-align: center;
+  margin-bottom: 10rpx;
+  font-size: 30rpx;
+}
+.userinfo{
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+}
+.getUserInfo{
+    color: white;
+    font-weight: normal;
+    background: #21A011;
+    margin-top: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    line-height: 20px;
+    width: 80%;
+
+}
+.getUserInfo2{
+    color: white;
+    font-weight: normal;
+    background: #b3b3b3;
+    margin-top: 10px;
+}

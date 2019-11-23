@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/mallorder/mallorder",
+    "pages/shop/shop",
+    "pages/car/car",
+    "pages/me/me",
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#38a3ff",
+    "navigationBarTitleText": "蒜子数据科技",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "selectedColor": "#38a3ff",
+    "list": [{
+      "pagePath": "pages/shop/shop",
+      "text": "商城",
+      "iconPath": "/imgs/fenleino.png",
+      "selectedIconPath": "/imgs/fenlei.png"
+    },
+    {
+      "pagePath": "pages/car/car",
+      "text": "购物车",
+      "iconPath": "/imgs/gouwuno.png",
+      "selectedIconPath": "/imgs/gouwu.png"
+    },
+    {
+      "pagePath": "pages/me/me",
+      "text": "我的",
+      "iconPath": "/imgs/meno.png",
+      "selectedIconPath": "/imgs/me.png"
+    }]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

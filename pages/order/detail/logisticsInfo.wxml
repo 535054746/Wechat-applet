@@ -1,0 +1,29 @@
+<view class="page">
+  <block wx:for="{{item}}" wx:key="*this">
+    <view class=" contatin">
+      <view  class="info_right">
+        <view class="rightCard">
+        <view class="block flex">
+          <view class="title">发货日期</view>
+          <view class="value">{{item.logisticsTime}}</view>
+        </view>
+        <view class="block flex">
+          <view class="title">物流公司</view>
+          <view class="value">{{item.company}}</view>
+        </view>
+        <view class="block flex" data-itme="{{item.singleNumber}}" bindtap="copy">
+          <view class="title">物流单号</view>
+          <view class="oddNum">{{item.singleNumber}}</view>
+        </view>
+        <view class="block flex">
+          <view class="title">联系方式</view>
+          <view class="value flex-row">
+            <view >{{item.contactNumber}}</view>
+            <view class="call" bindtap="call" data-tel="{{item.contactNumber}}">拨打</view>
+          </view>
+        </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

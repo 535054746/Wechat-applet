@@ -1,0 +1,106 @@
+.order_detailsHead{
+  font-size: 20px;
+  font-weight: 600;
+  margin: 8px
+}
+.order_detailsNo{
+  height: 80px;
+  margin: 5px 15px 5px 15px;
+  background: white;
+  border-radius:6px; 
+  position: relative;
+}
+.order_detailsNo text{
+  font-size: 15px;
+  display: block;
+  padding: 6px;
+  font-weight: bold;
+  border-bottom:1px solid #f2f2f2 
+}
+.order_detailsNo view {
+  font-size: 14px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: 1px solid #f2f2f2;
+  border-radius: 5px;
+  padding: 5px;
+  font-weight: bold
+}
+.order_address{
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  border-radius: 5px;
+  /* width: 95%; */
+  margin: 5px 15px 5px 15px;
+  padding: 5px;
+  font-size: 15px;
+  color: #969696;
+  box-sizing: border-box;
+}
+.order_detailsList{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: white;
+  border-radius: 5px; 
+  margin: 5px 15px 5px 15px;
+  padding: 10px;
+  box-sizing: border-box;
+  /* border-bottom: 1px solid #f3f3f3 */
+}
+.order_img image{
+  width: 55px;
+  height: 55px;
+  margin-right: 10px;
+}
+.orderShopInfo{
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+}
+.shopSum{
+  background: white;
+  margin: 0px 15px 5px 15px;
+  border-radius:5px;
+  padding: 6px;
+  position: relative;
+  height: 50px
+}
+.shopSum_price{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #f3f3f3;
+  font-size: 15px;
+  font-weight: bold;
+}
+.shopSum_mon{
+  position: absolute;
+  right: 8px;
+  bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.orderDetailfoot{
+  margin: 5px 15px 5px 15px;
+  background: white;
+  padding: 6px;
+  border-radius:5px;
+  font-size: 14px;
+  color: #969696;
+}
+.orderNum{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.clop{
+  padding: 5px;
+  border-radius:5px;
+  display: block;
+  border: 1px solid #969696
+}
+.orderTime{
+  margin-bottom: 12px
+}

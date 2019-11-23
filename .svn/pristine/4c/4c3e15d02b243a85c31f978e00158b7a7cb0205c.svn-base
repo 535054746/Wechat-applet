@@ -1,0 +1,31 @@
+<view class="contatin">
+  <view class="search">
+    <navigator url="/pages/search/search">
+      <view class="search-text">
+        <icon class="weui-icon-search_in-box search-icon" type="search" size="14"></icon>搜索
+      </view>
+    </navigator>
+  </view>
+
+  <view class="shopLeft rightTop" style="height:{{wheight}}px">
+    <scroll-view scroll-y="true"  bindscroll="scroll" wx:for="{{itemData}}" wx:key="*this">
+      <view  class ='left_nav {{crr == index ? "selected" : ""}}'  bindtap="leftNav" data-index="{{index}}" data-id="{{item.categoryid}}">{{item.categoryname}}</view>
+      <!-- <view class="left_heng" style='{{crr == index ? "display:inline": ""}}'></view> -->
+    </scroll-view>
+  </view>
+
+  <view class="shopRight right rightTop">
+    <view wx:for= "{{list}}" wx:key = "*this" class="typeshop">
+      <image src="../../imgs/img_placeholder.png" class="img"></image>
+      <text class="itemName"> {{item.itemName}}</text>
+      <text class="specif"> 规格：{{item.specification}}</text>
+      <text class="price">￥{{item.unitPrice / 100}}</text>
+      <view class="carnum" >
+        <image src="../../imgs/sub.png" class="sub"  bindtap="sub" data-index="{{index}}" hidden="{{item.count <= 0}}"></image>
+        <input class="weui-input"  bindinput="bindIptCartNum" value="{{item.count}}" data-index="{{index}}" hidden="{{item.count <= 0}}"/>
+        <image src="../../imgs/add.png" class="add" bindtap="add" data-index="{{index}}"></image>
+        <text class="unit" hidden="{{item.count <= 0}}">{{item.warehouseUnit}}</text>
+      </view>
+    </view>
+  </view>
+</view>

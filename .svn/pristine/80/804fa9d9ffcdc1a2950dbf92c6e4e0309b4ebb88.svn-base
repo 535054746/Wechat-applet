@@ -1,0 +1,11 @@
+<!--index.wxml-->
+
+<view class="container" style="width: 100%; height: 100%; position: relative;">
+  <!-- <image src="../../imgs/guide.png" style="width: 100%; height: 100%;" /> -->
+    <view class="logoText">请完成微信授权以继续使用</view>
+    <image src="../../imgs/showLogo.png" class="logoimg"></image>
+    <view class="userinfo">
+      <button wx:if="{{step == 1}}" size="default" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" type="primary" class="getUserInfo">微信用户快捷登录</button>
+      <button wx:else="{{step == 2}}" size="default" open-type="getUserInfo" bindgetuserinfo="getUserInfo" type="primary" class="getUserInfo">授权微信用户信息</button>
+    </view>
+</view>

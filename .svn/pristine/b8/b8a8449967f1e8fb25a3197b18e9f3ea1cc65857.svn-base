@@ -1,0 +1,56 @@
+<view>
+  <view class="order_detailsHead">
+    已取消 >
+  </view>
+
+  <!-- <view class="order_detailsNo">
+     <text>订单未支付，已自动取消</text>
+     <view>再来一单</view>
+  </view> -->
+
+  <view class="order_detailsNo">
+     <text>剩余支付时间：13：80</text>
+      <view class="quxiao">取消订单</view>
+      <view class="zf">去支付</view>
+  </view>
+
+  <view class="order_address">
+    <view>收货地址:</view>
+    <view>
+      <view>北京天安门</view>
+      <view>张三1331401231</view>
+    </view>
+  </view>
+
+  <view class="order_detailsList" wx:for="{{orderDetail}}" wx:key="*this">
+  
+    <view class="order_img">
+        <image src="../../../imgs/img_placeholder.png"></image>
+    </view>
+
+    <view class="orderShopInfo">
+      <view>
+        <view>{{item.shopName}}{{item.guige}}</view>
+        <view>x{{item.shopNum}}</view>
+      </view>
+      <view>￥{{item.shopPrice}}</view>
+    </view>
+  </view>
+  <view class="shopSum">
+      <view class="shopSum_price">
+        <view>商品总价</view>
+        <view>￥46.5</view>
+      </view>
+      <view class="shopSum_mon">小计：￥46.5</view>
+  </view>
+
+  <view class="orderDetailfoot">
+      <view class="orderNum">
+        <view>订单编号：<text>{{order_num}}</text></view>
+        <text bindtap="clop" class="clop" data-index="{{order_num}}">复制</text>
+      </view>
+      <view class="orderTime"> 下单时间：2019-11-12 16:38:21</view>
+      <view>支付方式：微信支付</view>
+  </view>
+
+</view>

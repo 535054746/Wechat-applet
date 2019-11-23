@@ -1,0 +1,123 @@
+/**app.wxss**/
+page{
+  height: 100%;
+  background: #F2F2F2;
+  color: #333333;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+html{
+  margin: 0;
+  padding: 0
+}
+.contatin{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  box-sizing: border-box
+}
+
+.display-flex{
+  display: flex;
+  display: -webkit-flex;
+}
+
+.flex-row{
+  flex: 1;
+  -webkit-box-flex: 1;
+}
+
+.shopRight {
+  width: 100%;
+  flex-direction: column;
+}
+
+.img{
+  /* margin: 9px; */
+  width: 100%;
+  height: 100%;
+}
+
+
+.common-bottom-btn{
+  margin: 10px;
+  background: #33b0ff;
+  color: white;
+  font-size: 16px;
+  font-weight: normal;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 5px;
+}
+
+.bottom-block{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.flex-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flex-column{
+  display: flex;
+  flex-direction: column
+}
+.flex{
+ display: flex
+}
+
+.txtcolor{
+  color: #969696;
+  font-size: 14px;
+}
+.txtTheme {
+  color:  #38a3ff;
+}
+.txtcolorMax{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.shopName{
+  margin-top: 14px;
+  font-size: 16px;
+}
+.shopspecif{
+  font-size: 14px;
+  color: #969696;
+  padding-top: 8px;
+}
+.stepper{
+  width: 96px;
+  text-align: right;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  padding-top: 8px
+}
+.shopList{
+  height: 92px;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+  display: flex;
+}
+.shopName{
+  margin-top: 13px;
+  font-size: 16px;
+}
+.shopNum{
+  margin-top: 1px;
+}
+.shopPrice{
+  text-align: right;
+  margin-right:10px;
+  font-size:15px;
+  color: #FF5E3A
+}
+.img_content{
+  width: 55px;
+  height: 55px;
+  margin: 9px
+}

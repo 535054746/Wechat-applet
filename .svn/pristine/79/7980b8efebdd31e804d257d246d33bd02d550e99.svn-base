@@ -1,0 +1,133 @@
+.order_detailsHead{
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px
+}
+.order_detailsNo{
+  margin: 5px 10px 5px 10px;
+  background: white;
+  border-radius:6px; 
+  position: relative;
+}
+.order_detailsNo .time{
+  font-size: 15px;
+  display: block;
+  padding: 10px;
+  font-weight: bold;
+  border-bottom:1px solid #f2f2f2 
+}
+.quxiao {
+  font-size: 14px;
+  margin: 5px 5px;
+  border: 1px solid #f2f2f2;
+  border-radius: 5px;
+  padding: 5px;
+  font-weight: bold;
+  color: black;
+}
+.zf {
+  font-size: 14px;
+  margin: 5px 5px;
+  border: 1px solid #f2f2f2;
+  border-radius: 5px;
+  padding: 5px;
+  font-weight: bold;
+  background: #33b0ff;
+  color: white;
+}
+.order_address{
+  display: flex;
+  background: white;
+  border-radius: 5px;
+  margin: 5px 10px 5px 10px;
+  padding: 5px;
+  font-size: 15px;
+  color: #969696;
+  box-sizing: border-box;
+  /* width: 95%; */
+}
+.address{
+  width: 250px;
+  margin-left: 6px;
+  word-break: break-all;
+}
+.order_detailsList{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: white;
+  border-radius: 5px; 
+  margin: 5px 10px 5px 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.order_img image{
+  width: 55px;
+  height: 55px;
+  margin-right: 10px;
+}
+.orderShopInfo{
+  /* display: flex; */
+  /* justify-content: space-between; */
+  width: 85%;
+}
+.shopSum{
+  background: white;
+  margin: 5px 10px 5px 10px;
+  border-radius:5px;
+  position: relative;
+}
+.shopSum_price{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #f3f3f3;
+  font-size: 15px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  padding: 10px;
+}
+.shopSum_mon{
+  margin: 5px 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
+}
+.orderDetailfoot{
+  margin: 5px 10px 5px 10px;
+  background: white;
+  padding: 6px;
+  border-radius:5px;
+  font-size: 14px;
+  color: #969696;
+}
+.orderNum{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.clop{
+  padding: 0 2px;
+  border-radius:5px;
+  display: block;
+  border: 1px solid #969696;
+  font-size: 14px;
+  width: 31px;
+  height: 19px;
+  text-align: center;
+  line-height: 19px;
+}
+.orderTime{
+  margin-bottom: 12px
+}
+.shopName{ 
+ word-break:  break-all;
+ width: 150px
+}
+.receiptAddress{
+  width: 260px;
+  word-break: break-all;
+}
+.pad{
+  padding: 2px
+}

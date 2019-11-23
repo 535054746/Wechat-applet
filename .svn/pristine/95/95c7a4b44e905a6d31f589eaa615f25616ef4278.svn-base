@@ -1,0 +1,158 @@
+/* pages/car/car.wxss */
+.bottomfixed{
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  width: 100%;
+  height: 120rpx;
+  line-height: 120rpx;
+  background:white;
+  z-index: 999;
+  border-top: 1px solid #f7f7f7
+}
+.bottomfixed .inner{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+ 
+.bottomfixed .inner .chkAll {
+  font-size: 28rpx;
+  margin-right: 40rpx;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+ 
+.bottomfixed .inner .chkAll .allselect{
+  width:20px;
+  height:20px;
+}
+.allselect{
+  width:22px;
+  height:22px;
+  margin-right: 5px
+}
+ 
+.bottomfixed .inner .total{
+  font-size:28rpx;
+}
+.bottomfixed .inner .total em{color:red;}
+ 
+.btn-pay{
+  position: absolute;
+  right:10px;
+  background:#38a3ff;
+  color:#fff;
+  padding:0 10px;
+  font-size: 25rpx;
+  border-radius: 10%;
+  height: 40px;
+  width: 60px;
+  line-height: 40px;
+  text-align: center;
+}
+
+
+.disabled{
+  background:#ccc;
+}
+ 
+.content{
+    width: 100%;
+    height:100%;
+    position: absolute;
+    left: 0;
+    font-size: 15px;
+    color:#999;
+    text-align:center;
+}
+.headerImg {
+  margin-left: 40px
+}
+
+.carts-select{
+  width:20px;
+  height:20px;
+  margin-left: 10px;
+}
+.text{
+  position: absolute;
+  display: flex;
+  color:#ddd;
+  font-size: 18px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 15%;
+  left: 24%;
+}
+.text image{
+  width: 200rpx;
+  height: 260rpx;
+  display: block;
+}
+.text view {
+  font-size: 28rpx;
+  padding-top: 10px
+}
+.deleted{
+  position: absolute;
+  top: 3px;
+  right: 0;
+}
+.carshopBott{
+  margin-top: 7px;
+  margin-bottom: 65px;
+}
+.carName{
+   height: 80px;
+  position: relative;
+}
+.carSte{
+  margin-left: 10px
+}
+
+.van-swipe-cell__right {
+  display: inline-block;
+  width: 65px;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  background-color: #f44;
+  position: relative;
+}
+.swipeClear{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.carCard{
+  background: white;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.carCardList{
+  border-radius: 10px;
+  width: 94%;
+  margin: 0 auto;
+}
+
+.carDel{
+  height: 40px;
+  border-bottom: 1px solid #f2f2f2;
+  width: 100%;
+  background: white;
+  line-height: 40px;
+  text-align: right;
+  font-size: 14px;
+}
+.carDel text {
+  margin-right: 13px
+}

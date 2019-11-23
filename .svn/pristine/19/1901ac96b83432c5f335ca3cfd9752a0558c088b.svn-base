@@ -1,0 +1,9 @@
+<!--tab-我的-->
+<view>
+  <view class="user-area container">
+    <image class="circle-img" src="{{userInfo.avatarUrl}}"></image>
+    <text>{{userInfo.nickName}}</text>
+  </view>
+
+  <button bindtap="addAddress">address</button>
+</view>

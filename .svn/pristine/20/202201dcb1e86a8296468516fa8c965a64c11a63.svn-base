@@ -1,0 +1,40 @@
+<view>
+
+    <view>
+      <view wx:if="{{carListLength<=0}}" class="text">
+        你暂时还没有商品，快去添加吧
+      </view>
+      <view wx:else class="carshoplist">
+        <view wx:for= "{{carList}}" wx:key = "*this" class="typeshop">
+          <view class="carts-radio">
+            <image class="carts-select" bindtap="bindCheckbox" data-index="{{index}}" src="{{item.isSelect?   '/imgs/select.png':'/imgs/n_select.png'}}" />
+          </view>
+          <!-- <image src="{{picUrl}}" class="img"></image> -->
+          <image src="../../imgs/1.jpg" class="img headerImg"></image>
+          <text class="itemName"> {{item.itemName}}</text>
+          <text class="specif"> 规格：{{item.specification}}</text>
+          <text class="price">单价：{{item.unitPrice / 100}}元</text>
+          <view class="carnum" >
+            <image src="../../imgs/sub.png" class="sub"  bindtap="sub" data-index="{{index}}" hidden="{{item.count == 0}}" data-id="{{item.id}}"></image>
+            <input class="weui-input"  bindinput="bindIptCartNum" value="{{item.count}}" data-index="{{index}}" hidden="{{item.count == 0}}"/>
+            <image src="../../imgs/add.png" class="add" bindtap="add" data-index="{{index}}"></image>
+            <text class="unit" hidden="{{item.count == 0}}">{{item.warehouseUnit}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+ <view class="carts-footer">  
+    <view class="bottomfixed">  
+      <view class="inner">  
+        <view class="chkAll" bindtap="bindSelectAll">
+        <image class="allselect" src="{{selectAllStatus?'/imgs/select.png':'/imgs/n_select.png'}}" /> 
+          <text>全选</text>  
+        </view>  
+        <view class="total">合计：<em>￥{{totalMoney}}</em></view>  
+        <view wx:if="{{totalCount > 0}}" class="btn-pay" bindtap='bindjiesuan'>去结算({{totalCount}})</view>  
+        <view wx:else class="btn-pay disabled">请选择商品</view>  
+    </view>  
+  </view> 
+  </view>
+</view>

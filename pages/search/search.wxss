@@ -1,0 +1,187 @@
+.main{
+    padding: 0 20rpx;
+}
+
+page{
+  width: 100%;
+  height: 100%;
+  /* background:  */
+}
+.search-box {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 26rpx;
+}
+.searchList{
+  width: 49%;
+  border-radius: 7px;
+  background: white;
+  margin-bottom: 10px;
+}
+.cancel{
+  position: absolute;
+  right: 58px;
+  top: 22px;
+  z-index: 99
+}
+.search-input {
+    flex: 1;
+    height: 60rpx;
+    line-height: 60rpx;
+    padding: 0 20rpx 0 54rpx;
+    background: #f8f8f8;
+    border-radius: 10rpx;
+    font-size: 32rpx;
+    border: 2rpx solid #ddd;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15rpx;
+    top: 44rpx;
+    width: 35rpx;
+    height: 35rpx;
+}
+.search-btn{
+    font-size: 28rpx;
+    padding: 0 20rpx;
+    line-height: 64rpx;
+    margin-left: 5px;
+    background: #38a3ff;
+    border-radius: 5px;
+    color: white
+}
+.search_list{
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap
+}
+.search_zs{
+  width: 325rpx;
+  height: 370rpx;
+  border-radius: 5px;
+  background: #f5f6f5;
+  position: relative;
+  margin-bottom: 15rpx;
+}
+.search_zs .shopImg{
+  width: 200rpx;
+  height: 200rpx;
+  margin: 20rpx 65rpx 0 
+}
+.search_info{
+  margin-top: 10px;
+  text-align: center;
+  font-size: 28rpx;
+}
+.noShop{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.noShop image {
+  width: 200rpx;
+  height: 260rpx;
+  display: block;
+  margin-top: 35%;
+  
+}
+
+.search_price{
+  position: absolute;
+  bottom: 6px;
+  left: 12px;
+  color: #F60
+}
+.add{
+  position: absolute;
+  bottom: 10rpx;
+  right: 10rpx;
+  width: 45rpx;
+  height: 45rpx;
+}
+.history_search{
+  display: flex;
+  flex-direction: column;
+  margin-top: 30rpx;
+}
+.his_title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30rpx;
+}
+.history{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.history_text{
+  padding: 5px 20rpx;
+  height: 30rpx;
+  font-size: 30rpx;
+  background: white;
+  line-height: 30rpx;
+  margin: 16rpx;
+  border-radius: 5px;
+}
+.search-img image{
+  width: 81rpx;
+  height: 75rpx;
+  margin-left: 5px;
+}
+.txt{
+  position: absolute;
+  font-size: 14px;
+  width: 18px;
+  height: 18px;
+  border-radius: 100%;
+  background: red;
+  color: white;
+  top: 9px;
+  right: -4px;
+  line-height: 16px;
+  text-align: center;
+  padding: 1px;
+}
+
+.empty-history{
+  text-align: center;
+  color: #b1b1b1;
+  font-size: 14px;
+  line-height: 40px;
+}
+.clearhistory{
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 4px 10px;
+  background: #F2F2F2;
+  text-align: center;
+  line-height: 1
+}
+.shopRight{
+  margin-right: 0
+}
+.img_content{
+  width: 158px;
+  height: 158px;
+  /* margin: 9px 9px 9px 0; */
+  margin: 9px auto 5px;
+}
+.carName{
+  position: relative;
+  height: 75px;
+}
+.searchimg{
+  width: 158px;
+  height: 158px;
+}
+.pad{ 
+  padding-left: 9px;
+  padding-bottom: 9px;
+}

@@ -1,0 +1,226 @@
+// pages/car/car.js
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    carList: '',
+    selectAllStatus: false,
+    totalCount: 0,
+    totalMoney: 0,
+    carListLength: '',
+    arrId: []
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    this.getTotalPrice()
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    var than = this 
+    var carList = wx.getStorageSync('newlist')
+    wx.removeStorageSync('newlist')
+    console.log(carList)
+    var arr = []
+    for(var i in carList ) {
+      var sub = carList[i]
+      arr.push(sub)
+    }
+    than.setData({
+      carList: arr,
+      carListLength: carList.length
+    })
+    wx.setTabBarBadge({
+      index: 1,
+      text: `${carList.length}`,
+      success(res) {
+        console.log(res)
+      }
+    })
+    if(carList.length == 0 ){
+      wx.hideTabBarRedDot({
+        index: 1,
+      })
+    }
+  },
+  
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+    wx.setStorageSync('list', this.data.carList)
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+  // 单选
+  bindCheckbox: function (e) {
+    var than = this;
+    const index = e.currentTarget.dataset.index;
+    let carList = than.data.carList;
+    const isSelect1 = carList[index].isSelect;
+    carList[index].isSelect = !isSelect1;
+    than.setData({
+      carList: carList,
+      selectAllStatus: false
+    });
+    than.getTotalPrice()
+  },
+
+   
+  // 全选
+  bindSelectAll:function() {
+    var than = this;
+    let carList = than.data.carList;
+    let selectAllStatus = than.data.selectAllStatus
+    selectAllStatus = !selectAllStatus
+    for(let i = 0; i<carList.length; i++) {
+      carList[i].isSelect = selectAllStatus
+    }
+    than.setData({
+      carList: carList,
+      selectAllStatus: selectAllStatus
+    })
+    than.getTotalPrice()
+  },
+
+
+  // 计算金额
+  getTotalPrice:function() {
+    var than = this
+    var carList = than.data.carList
+    let total = 0
+    let count = 0
+    for(var i = 0 ;i<carList.length;i++) {
+      if(carList[i].isSelect) {
+        total += carList[i].count * carList[i].unitPrice
+        count += carList[i].count
+      }
+    }
+    than.setData({
+      carList: carList,
+      totalCount: count,
+      totalMoney: total.toFixed(2) / 100
+    })
+  },
+
+  add: function (e) {
+    const index = e.currentTarget.dataset.index;
+    let carList = this.data.carList;
+    let count = parseFloat(carList[index].count);
+    count = count + 1;
+    carList[index].count = count;
+    this.setData({
+      carList: carList
+    });
+    this.getTotalPrice()
+  },
+
+  bindjiesuan() {
+    wx.navigateTo({
+      url: '/pages/mallorder/mallorder',
+    })
+  },
+  sub: function (e) {
+    var than = this
+    const index = e.currentTarget.dataset.index;
+    let carList = than.data.carList;
+    let count = parseFloat(carList[index].count)
+    count = count - 1;
+    carList[index].count = count;
+    console.log(e)
+    if(count == 0) {
+      wx.showModal({
+        title: '提示',
+        content: '你正准备从购物车中删除这个商品',
+        success(res) {
+            if(res.confirm) {
+            var id = e.currentTarget.dataset.id
+            var idx = carList.splice(index, 1)
+            let arrId = than.data.arrId
+            arrId.push(id)
+            than.setData({
+              carList: carList,
+              carListLength:carList.length,
+              arrId: arrId
+            });
+            wx.setStorageSync('id', arrId)
+            wx.setStorageSync('list',carList)
+            wx.setTabBarBadge({
+              index: 1,
+              text: `${carList.length}`,
+            })
+            if(carList.length == 0) {
+              wx.hideTabBarRedDot({
+                index: 1,
+              })
+            }
+          } else if (res.cancel) {
+            console.log(count)
+            if(count == 0) {
+            console.log('1')
+               count= count + 1
+              carList[index].count = count;
+              than.setData({
+                carList: carList
+              })
+            }
+          }
+        },
+      })
+    }
+    this.getTotalPrice()
+  },
+
+  bindIptCartNum: function (e) {
+    const index = e.currentTarget.dataset.index;
+    var num = parseFloat(e.detail.value);
+    let carList = this.data.carList;
+    carList[index].count = num;
+    console.log(index,num,carList[index].count)
+    this.setData({
+      carList: carList,
+    });
+    this.getTotalPrice()
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

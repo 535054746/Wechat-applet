@@ -1,0 +1,38 @@
+<view class="contatin">
+  <view class="header">
+    <view class="address">
+      <image src="../../imgs/bi.png" class="img"></image>
+      <text>新增收货地址</text>
+      <text class="right">></text>
+    </view>
+    <view>
+      <!-- 地址 -->
+    </view>
+  </view>
+
+  <view class="content">
+      <view class="shopInfo" wx:for="{{shopInfo}}" wx:key ="*this">
+        <!-- <image src="{{}}"></image> -->
+        <view class="shopInfo_left">
+          <image src="../../imgs/1.jpg"></image>
+        </view>
+        <view class="shopInfo_right">
+          <view>
+            <view>{{item.shopName}}</view>
+            <view>{{item.guige}}</view>         
+          </view>
+          <view>
+            <view>共{{item.num}}件</view>
+            <view>单价：￥{{item.price}}</view>
+            <view>金额：￥{{item.monery}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="zongmonery">小计：￥{{999}}</view>
+  </view>
+
+  <view>
+    <view></view>
+  </view>
+
+</view>

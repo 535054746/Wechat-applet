@@ -1,0 +1,58 @@
+<view class="contatin">
+  <view class="header">
+    <view class="address" wx:if="{{address}}" bindtap="newAddress">
+      <image src="../../imgs/bi.png" class="imgbi"></image>
+      <text>新增收货地址</text>
+      <text class="right">></text>
+    </view>
+    <block wx:else>
+      <view wx:for="{{address}}">
+        <view class="dz">{{item.dz}}</view>
+        <view class="dz_info">
+          <text>{{item.name}}</text>
+          <text>{{item.iphone}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="content">
+      <view class="shopInfo" wx:for="{{shopInfo}}" wx:key ="*this">
+        <view class="shopInfo_left">
+        <!-- <image src="{{}}"></image> -->
+          <image src="../../imgs/img_placeholder.png" bindtap="viewImg"></image>
+        </view>
+        <view class="shopInfo_right">
+          <view>
+            <view>{{item.shopName}}</view>
+            <view >{{item.guige}}</view>         
+          </view>
+          <view>
+            <view>共{{item.num}}件</view>
+            <view>单价：￥{{item.price}}</view>
+            <view>金额：￥{{item.monery}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="shop_footer">
+        <view class="zmonery">小计：￥{{999}}</view>
+      </view>
+  </view>
+
+    <view class="zf_fs">
+      <text class="zf_txt">支付方式</text>
+      <view class="zf_footer">
+        <view>
+          <image src="../../imgs/wxplay.png" class="img"></image>
+        </view>
+        <view class="txt">
+          <view>微信支付</view>
+          <view>亿万用户的选择，更快更安全</view>
+        </view>
+      </view>
+    </view>
+    <view class="addres_footer">
+        <view class="monery_footer">待支付：<text>￥199</text></view>
+        <view class="monery_btn">去支付</view>
+    </view>
+</view>

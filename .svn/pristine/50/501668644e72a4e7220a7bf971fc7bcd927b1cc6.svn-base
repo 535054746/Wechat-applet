@@ -1,0 +1,113 @@
+<view>
+  <view class="order_detailsHead" wx:if="{{orderDetail.status == '0'}}">
+    待付款
+  </view>
+  <view class="order_detailsHead" wx:elif="{{orderDetail.status == '1'}}">
+    待发货
+  </view>
+  <view class="order_detailsHead" wx:elif="{{orderDetail.status == '2'}}">
+    已发货
+  </view>
+  <view class="order_detailsHead" wx:elif="{{orderDetail.status == '3'}}">
+    已完成
+  </view>
+  <view class="order_detailsHead" wx:elif="{{orderDetail.status == '10'}}">
+    已取消
+  </view>
+  <view class="order_detailsHead" wx:else>
+    未知
+  </view>
+
+  <view class="order_detailsNo" wx:if="{{orderDetail.status == '0'}}">
+    <text class="time">剩余支付时间为<text class="txtTheme" style="margin-left:3px">{{timeDownText}}</text></text>
+    <text class="txtcolor" style="padding: 10px">15分钟内未支付，订单将自动取消</text>
+    <view class="flex-row">
+      <view></view>
+      <view class="flex" style="margin-top:11px">
+        <view class="quxiao" bindtap="cancelOrderConfirm">取消订单</view>
+        <view class="zf" bindtap="getPaymentInfo">去支付</view>
+      </view>
+    </view>
+  </view>
+  <view class="order_detailsNo" wx:elif="{{orderDetail.status == '1'}}">
+    <view class="txtcolorMax" style="padding: 10px; border-bottom: 1px solid #f3f3f3;">商家正在包装商品</view>
+  </view>
+  <view class="order_detailsNo" wx:elif="{{orderDetail.status == '2'}}">
+    <view class="txtcolorMax" style="padding: 10px;border-bottom: 1px solid #f3f3f3;">物流正在火速配送，请耐心等待</view>
+  </view>
+  <view class="order_detailsNo" wx:elif="{{orderDetail.status == '3'}}">
+    <view class="txtcolorMax" style="padding: 10px; border-bottom: 1px solid #f3f3f3;">感谢您对我们的信任，期待再次光临</view>
+    <view class="flex-row">
+      <view></view>
+      <view class="zf" >再来一单</view>
+    </view>
+  </view>
+  <view class="order_detailsNo" wx:elif="{{orderDetail.status == '10'}}">
+    <view class="txtcolorMax" style="padding:10px">订单已经取消</view>
+    <view class="flex-row">
+      <view></view>
+      <view class="zf" >再来一单</view>
+    </view>
+  </view>
+  <view class="order_detailsNo" wx:else>
+    <text>正在获取订单信息</text>
+  </view>
+
+  <view class="order_address">
+    <view style="width:21%">
+      <view class="pad">收货人</view>
+      <view class="pad">手机号码</view>
+      <view class="pad">收货地址</view>
+    </view>
+    <view  style="width:73%">
+      <view class="pad">{{orderDetail.receiptName}}</view>
+      <view class="pad">{{orderDetail.receiptPhone}}</view>
+      <view class="pad">{{orderDetail.receiptAddress}}{{orderDetail.receiptAddress}}{{orderDetail.receiptAddress}}{{orderDetail.receiptAddress}}</view>
+    </view>
+  </view>
+
+
+  <view class="order_detailsList" wx:for="{{orderDetail.salesOrderDetailList}}" wx:key="*this">
+
+    <view class="order_img">
+      <image src="../../../imgs/img_placeholder.png"></image>
+    </view>
+
+    <view class="orderShopInfo">
+      <view class="flex-row">
+        <view style="font-size: 16px">{{item.itemName}}</view>
+        <view style="width:90px;text-align:right">{{item.orderQty}}{{item.unit}}</view>
+      </view>
+      <view class="flex-row">
+        <view class="txtcolor">规格：{{item.specifications}}</view>
+        <view style="width:90px;text-align:right">￥{{item.orderPrice/100}}</view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="shopSum">
+    <view class="shopSum_price">
+      <view>商品总价</view>
+      <view>￥{{orderDetail.amount / 100}}</view>
+    </view>
+    <view class="flex-row" style="padding: 4px">
+      <view></view>
+      <view class="shopSum_mon" wx:if="{{orderDetail.status == '0' || orderDetail.status == '10'}}">应付：￥{{orderDetail.amount / 100}}</view>
+      <view class="shopSum_mon" wx:else>实付：￥{{orderDetail.amount / 100}}</view>
+    </view>
+  </view>
+
+  <view class="orderDetailfoot">
+    <view class="orderNum">
+      <view>订单编号：
+        <text>{{orderDetail.orderCode}}</text>
+      </view>
+      <text bindtap="copyOrderNumber" class="clop" data-number="{{orderDetail.orderCode}}">复制</text>
+    </view>
+    <view class="orderTime"> 下单时间：{{orderDetail.orderTime}}</view>
+    <view class="orderTime" hidden="{{orderDetail.status == '0' || orderDetail.status == '10'}}"> 付款时间：{{orderDetail.payTime}}</view>
+    <view>支付方式：微信支付</view>
+  </view>
+
+</view>

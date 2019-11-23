@@ -1,0 +1,223 @@
+// pages/search/search.js
+let timeId = null;
+var host = require('../../utils/http.js')
+const app = getApp();
+var ajax = require('../../utils/requestUtil.js')
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    showKeywords: false,
+    showResult: false,
+    value: '',
+    shopList: '',
+    splist: [],
+    shopStatus: false,
+    carlength: '',
+    history: [],
+    clear: true,
+    stashop: false
+  },
+
+  inputTxt() {
+    this.setData({
+      value: '',
+      shopStatus: false
+    })
+  },
+  gwc() {
+    wx.switchTab({
+      url: '/pages/car/car',
+    })
+  },
+  clearhistory() {
+    var than = this
+    wx.showModal({
+      title: '提示',
+      content: '是否确认删除？',
+      success(res) {
+        if(res.confirm){
+          wx.removeStorageSync('history')
+          than.setData({
+            clear: false
+          })
+        }
+      }
+    })
+  },
+  
+  keywordHandle(e) {
+    const text = e.target.dataset.text;
+
+    this.setData({
+      value: text,
+      showKeywords: false,
+      showResult: true
+    })
+    this.searBtn()
+    this.historyHandle(text);
+  },
+  searchInput(e) {
+    var than = this
+    if (!e.detail.value) {
+      than.setData({
+        showKeywords: false,
+        shopStatus: false
+      })
+    } else {
+      than.setData({
+        showKeywords: true,
+        value: e.detail.value,
+      })
+    }
+  },
+
+  searBtn(e) {
+    var than = this
+    var valTxt = than.data.value
+    if(!valTxt) {
+      return false
+    } else {
+      ajax.ajaxPOST({
+        url:'member/mallItemProgram/findMallItemProgramDetails',
+        data: {
+          id: '19',
+          name: valTxt
+        },
+        success(res) {
+          console.log(res)
+          res.data.forEach(item => {
+            item.count = 0;
+            item.isSelect = false
+          })
+          if(res.data.length == 0) {
+            than.setData({
+              stashop: true
+            })
+          } else {
+            than.setData({
+              shopList: res.data,
+              shopStatus:true,
+              stashop: false
+            })
+          }
+        }
+      })
+    }
+   than.historyHandle(valTxt)
+  },
+
+  historyHandle(value) {
+    let history = this.data.history;
+    const idx = history.indexOf(value);
+    if (idx === -1) {
+      if (history.length > 7) {
+        history.pop();
+      }
+    } else {
+      history.splice(idx, 1);
+    }
+    history.unshift(value);
+    wx.setStorageSync('history', JSON.stringify(history));
+    this.setData({
+      history
+    });
+  },
+
+
+
+  add(e) {
+    var than = this
+    var index = e.currentTarget.dataset.index
+    var shopList =  than.data.shopList[index]
+    var splist = wx.getStorageSync('splist')
+
+    var count = shopList.count
+    var crrid = splist.find(item =>item.id == shopList.id)
+    if(crrid) {
+      count = count + 1
+    } else {
+      count = count + 1
+      splist.push(shopList)
+    }
+    console.log(splist)
+    shopList.count = count
+    than.setData({
+      splist: splist,
+      carlength: splist.length
+    })
+    wx.setStorageSync('splist',splist)
+  },
+
+  histroyBtn() {
+
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    const history = wx.getStorageSync('history');
+    if (history) {
+      this.setData({
+        history: JSON.parse(history)
+      })
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    var than = this
+    var splist = wx.getStorageSync('splist')
+    var list =wx.getStorageSync('list')
+    than.setData({
+      splist: list,
+      carlength:splist.length
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

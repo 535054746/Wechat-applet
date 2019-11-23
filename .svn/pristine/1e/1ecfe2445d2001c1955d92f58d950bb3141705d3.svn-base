@@ -1,0 +1,29 @@
+<view class="contatin">
+  <!-- <view class="shopLeft" style="height:{{wheight}}px">
+    <block wx:for="{{itemData}}" wx:key="*this">
+      <view class ='left_nav {{crr == item.id ? "selected" : ""}}' bindtap="leftNav" data-id="{{item.id}}">{{item.categoryName}}            </view>
+    </block>
+  </view> -->
+
+   <view class="shopLeft" style="height:{{wheight}}px">
+        <scroll-view scroll-y="true"  bindscroll="scroll" wx:for="{{itemData}}" wx:key="*this">
+          <view class ='left_nav {{crr == item.id ? "selected" : ""}}'  bindtap="leftNav" data-id="{{item.id}}">{{item.categoryName}}</view>
+        </scroll-view>
+    </view>
+
+  <view class="shopRight right">
+    <view wx:for= "{{list}}" wx:key = "*this" class="typeshop">
+     <!-- <image src="{{picUrl}}" class="img"></image> -->
+      <image src="../../imgs/1.jpg" class="img"></image>
+      <text class="itemName"> {{item.itemName}}</text>
+      <text class="specif"> 规格：{{item.specification}}</text>
+      <text class="price">单价：{{item.unitPrice / 100}}元</text>
+      <view class="carnum" >
+        <image src="../../imgs/sub.png" class="sub"  bindtap="sub" data-index="{{index}}" hidden="{{item.count <= 0}}"></image>
+        <input class="weui-input"  bindinput="bindIptCartNum" value="{{item.count}}" data-index="{{index}}" hidden="{{item.count <= 0}}"/>
+        <image src="../../imgs/add.png" class="add" bindtap="add" data-index="{{index}}"></image>
+        <text class="unit" hidden="{{item.count <= 0}}">{{item.warehouseUnit}}</text>
+      </view>
+    </view>
+  </view>
+</view>

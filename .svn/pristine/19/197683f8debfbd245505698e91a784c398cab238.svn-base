@@ -1,0 +1,174 @@
+// pages/car/car.js
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    cartList: [],
+    selectAllStatus: false,
+    totalCount: 0,
+    totalMoney: 0,
+    arrId: [],
+    cartList: []
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    this.getTotalPrice()
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    var than = this 
+    var cartList = wx.getStorageSync('cartList')
+    than.setData({
+      cartList: cartList,
+    })
+    wx.setTabBarBadge({
+      index: 1,
+      text: `${cartList.length}`,
+      success(res) {
+        console.log(res)
+      }
+    })
+    if(cartList.length == 0 ){
+      wx.hideTabBarRedDot({
+        index: 1,
+      })
+    }
+  },
+  
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+    wx.setStorageSync('cartList', this.data.cartList)
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+  // 单选
+  bindCheckbox: function (e) {
+    var than = this;
+    const index = e.currentTarget.dataset.index;
+    let cartList = than.data.cartList;
+    const isSelect1 = cartList[index].isSelect;
+    cartList[index].isSelect = !isSelect1;
+    than.setData({
+      cartList: cartList,
+      selectAllStatus: false
+    });
+    than.getTotalPrice()
+  },
+
+   
+  // 全选
+  bindSelectAll:function() {
+    var than = this;
+    let cartList = than.data.cartList;
+    let selectAllStatus = than.data.selectAllStatus
+    selectAllStatus = !selectAllStatus
+    for(let i = 0; i<cartList.length; i++) {
+      cartList[i].isSelect = selectAllStatus
+    }
+    than.setData({
+      cartList: cartList,
+      selectAllStatus: selectAllStatus
+    })
+    than.getTotalPrice()
+  },
+
+
+  // 计算金额
+  getTotalPrice:function() {
+    var than = this
+    var cartList = than.data.cartList
+    let total = 0
+    let count = cartList.length;
+    var selectedCount = 0;
+    for(var i = 0 ;i<cartList.length;i++) {
+      if(cartList[i].isSelect) {
+        total += cartList[i].qty * cartList[i].unitPrice
+        selectedCount++;
+      }
+    }
+    than.setData({
+      cartList: cartList,
+      totalCount:count,
+      totalMoney: total.toFixed(2) / 100,
+      selectAllStatus: (selectedCount==cartList.length)
+    })
+  },
+
+  bindjiesuan() {
+    var selectedList = [];
+    var selectedId = [];
+    for(var item of this.data.cartList){
+      if(item.isSelect){
+        selectedList.push(item);
+        selectedId.push(item.id);
+      }
+    }
+    //缓存选择结算的商品
+    wx.setStorageSync('selectShop', selectedList);
+    wx.navigateTo({
+      url: '/pages/mallorder/mallorder?ids='+selectedId.join(),
+    })
+  },
+
+  onItemChange(e) {
+    var vm = this;
+    var cartList = this.data.cartList;
+    const index = e.currentTarget.dataset.index;
+    const id = e.currentTarget.dataset.id;
+    var qty = e.detail;
+    var cartIndex = 0;
+    if (cartList.length != 0) {
+      for (var item of cartList) {
+        if (item.id == id) {
+          item.qty = qty;
+          break;
+        }
+        cartIndex++;
+      }
+    }
+    if (qty == 0) {
+      cartList.splice(cartIndex, 1);
+
+      wx.showModal({
+        title: '提示',
+        content: '您确定删除该商品吗？',
+        success(res){
+          if (res.confirm) {
+            vm.setData({
+              cartList: cartList
+            })
+            wx.setTabBarBadge({
+              index: 1,
+              text: '' + cartList.length,
+            });
+          }
+        }
+      })
+    }else{
+      this.setData({
+        cartList: cartList
+      })
+    }
+  },
+})

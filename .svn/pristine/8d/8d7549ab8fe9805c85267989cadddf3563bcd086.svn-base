@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/shop/shop",
+    "pages/search/search",
+    "pages/mallorder/mallorder",
+    "pages/newAddress/newAddress",
+    "pages/car/car",
+    "pages/me/me",
+    "pages/aboutUs/aboutUs",
+    "pages/web/web",
+    "pages/addressList/addressList",
+    "pages/order/detail/orderDetail",
+    "pages/order/orderList"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#38a3ff",
+    "navigationBarTitleText": "蒜子供应链",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "selectedColor": "#38a3ff",
+    "color": "#bfbfbf",
+    "list": [
+      {
+        "pagePath": "pages/shop/shop",
+        "text": "首页",
+        "iconPath": "/imgs/pinxiang.png",
+        "selectedIconPath": "/imgs/pinxiang-checked.png"
+      },
+      {
+        "pagePath": "pages/car/car",
+        "text": "购物车",
+        "iconPath": "/imgs/gouwuche.png",
+        "selectedIconPath": "/imgs/gouwuche-checked.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "/imgs/yonghu.png",
+        "selectedIconPath": "/imgs/yonghu-checked.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

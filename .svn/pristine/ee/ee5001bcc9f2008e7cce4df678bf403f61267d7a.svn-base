@@ -1,0 +1,23 @@
+<!--pages/order/orderList.wxml-->
+<view class="display-flex">
+  <view class="flex-row">
+    <view class="order-status">全部</view>
+  </view>
+  <view class="flex-row">
+    <view class="order-status">待付款</view>
+  </view>
+  <view class="flex-row">
+    <view class="order-status">待发货</view>
+  </view>
+  <view class="flex-row">
+    <view class="order-status">已发货</view>
+  </view>
+  <view class="flex-row">
+    <view class="order-status">已完成</view>
+  </view>
+</view>
+<scroll-view>
+  <view wx:for="{{orderList}}" wx:for-item="item">
+  
+  </view>
+</scroll-view>

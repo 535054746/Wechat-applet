@@ -1,0 +1,238 @@
+// pages/order/detail/orderDetail.js
+const ajax = require('../../../utils/requestUtil.js');
+const myUtil = require('../../../utils/util.js');
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    id: '',
+    orderDetail:{},
+    timeDownText: '',
+    timeDownInterval: undefined,
+    timeDownCount: 0,
+  },
+
+  cancelOrderConfirm() {
+    var vm = this;
+    wx.showModal({
+      title: '提示',
+      content: '确定要取消该订单吗？',
+      success(res){
+        if (res.confirm) {
+          vm.cancelOrder(false);
+        }
+      }
+    });
+  },
+
+  cancelOrder(auto) {
+    var vm = this;
+    ajax.ajaxPOST({
+      url: 'salesOrder/cancelOrder',
+      data: { id: vm.data.id },
+      success(data) {
+        if (data.code == 1) {
+          if (auto) {
+            vm.getOrderDetail();
+          } else {
+            wx.showToast({
+              title: '取消成功',
+            })
+            setTimeout(function () {
+              vm.getOrderDetail();
+            }, 500);
+          }
+        } else {
+          wx.showToast({
+            title: data.message,
+            icon: 'none'
+          })
+        }
+      },
+      fail(data) {
+        wx.showToast({
+          title: data.errMsg,
+          icon: 'none'
+        })
+      },
+      showLoading: !0
+    });
+  },
+
+  copyOrderNumber(e) {
+    wx.setClipboardData({
+      data: e.currentTarget.dataset.number,
+      success(res) {
+        wx.getClipboardData({
+          success(res) {
+          }
+        })
+      }
+    })
+  },
+
+  setPaymentTimeDown(){
+    var vm = this;
+    var orderDetail = this.data.orderDetail;
+    if(orderDetail.status != '0'){
+      return;
+    }
+    //单据创建时间
+    var createTime = new Date(orderDetail.orderTime).getTime();
+    //当前时间
+    var nowTime = new Date().getTime();
+    //相差毫秒数
+    var period = (nowTime - createTime);
+    //判断下单时间与当前时间是否相差15分钟以上
+    var isOverDue = (period > 900000);
+    if(isOverDue){//如果超时了就取消订单
+      this.cancelOrder(true);
+    }else{//创建支付倒计时
+      //设置倒计时的时长
+      this.data.timeDownCount = 900000- period;
+      clearInterval(this.data.timeDownInterval);
+      vm.data.timeDownInterval = setInterval(function(){
+        vm.data.timeDownCount = vm.data.timeDownCount-1000;
+        vm.updateTimeDownText();
+      }, 1000);
+    }
+  },
+
+  //更新页面的倒计时
+  updateTimeDownText(){
+    var timeDown = this.data.timeDownCount;
+    if(timeDown < 0){
+      clearInterval(this.data.timeDownInterval);
+      this.cancelOrder(true);
+    }else{
+      var min = parseInt(timeDown / 60000);
+      var second = parseInt((timeDown % 60000) / 1000);
+      if (min < 10) {
+        min = "0" + min;
+      }
+      if (second < 10) {
+        second = "0" + second;
+      }
+      var timeDownText = min + ":" + second;
+      this.setData({
+        timeDownText: timeDownText
+      })
+    }
+
+  },
+
+  getOrderDetail(){
+    var vm = this;
+    ajax.ajaxPOST({
+      url: 'salesOrder/findSalesOrderById',
+      data: {id: vm.data.id},
+      success(data){
+        if (data.code == 1) {
+          data.data.orderTime = myUtil.formatTime(new Date(data.data.orderTime));
+          data.data.payTime = myUtil.formatTime(new Date(data.data.payTime));
+          vm.setData({
+            orderDetail: data.data
+          })
+          if(data.data.status == '0'){//如果订单状态是待付款，就执行下面的方法
+            vm.setPaymentTimeDown();
+          }
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: data.message,
+            showCancel: !1,
+            success(res) {
+              if (res.confirm) {
+                wx.navigateBack();
+              }
+            }
+          });
+        }
+      },
+      fail(data) {
+        wx.showModal({
+          title: '提示',
+          content: data.errMsg,
+          showCancel: !1,
+          success(res) {
+            if (res.confirm) {
+              wx.navigateBack();
+            }
+          }
+        });
+      },
+      showLoading: !0
+    });
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    if(myUtil.isEmpty(options.id)){
+      wx.showModal({
+        title: '提示',
+        content: '获取订单失败！',
+        showCancel: !1,
+        success(res){
+          if(res.confirm){
+            wx.navigateBack();
+          }
+        }
+      });
+    }else{
+      this.data.id = options.id;
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.getOrderDetail();
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+    clearInterval(this.data.timeDownInterval);
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    clearInterval(this.data.timeDownInterval);
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

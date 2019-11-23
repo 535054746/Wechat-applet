@@ -1,0 +1,212 @@
+// pages/mallorder/mallorder.js
+const ajax = require('../../utils/requestUtil.js');
+const myUtil = require('../../utils/util.js');
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    address: undefined,
+    shopInfo: [],
+    selectShop: [],
+    totalAmount: 0,
+  },
+
+  selectAddress:function() {
+    var checkedId;
+    if(!myUtil.isEmpty(this.data.address))
+      checkedId = this.data.address.id;
+    wx.navigateTo({
+      url: "/pages/addressList/addressList?mode=1&checkedId="+checkedId
+    })
+  },
+
+  getOrderDetail(ids){
+    var vm = this;
+    ajax.ajaxPOST({
+      url: 'member/mallItemProgram/findMallItemProgramDetailsByIds',
+      data: {id: ids},
+      success(data){
+        if(data.code == 1){
+          var totalAmount = 0;
+          for(var item of data.data){
+            for(var selectItem of vm.data.selectShop){
+              if(item.id == selectItem.id){
+                item.count = selectItem.count;
+                var amount = selectItem.count * item.unitPrice / 100;
+                item.amount = amount;
+                totalAmount += amount;
+                break;
+              }
+            }
+          }
+          vm.setData({
+            shopInfo: data.data,
+            totalAmount: totalAmount
+          })
+
+          vm.getDefaultAddress();
+        }else{
+          wx.showToast({
+            title: data.message,
+            icon: 'none'
+          })
+        }
+      },
+      showLoading: !0
+    });
+  },
+
+  getDefaultAddress(){
+    var vm = this;
+    ajax.ajaxPOST({
+      url: 'member/userShippingAddress/findDefaultUserShippingAddress',
+      success(data){
+        if(data.code == 1){
+          if (myUtil.isEmpty(data.data)){
+            
+          }else{
+            vm.setData({
+              address: data.data
+            })
+          }
+        }else{
+          wx.showToast({
+            title: data.message,
+            icon: 'none'
+          })
+        }
+      },
+      fail(){
+        
+      },
+      showLoading: !0
+    })
+  },
+
+  createOrder(){
+    var postData = {
+      receiptName: this.data.address.name,
+      receiptAddress: this.data.address.address,
+      receiptPhone: this.data.address.phone
+    };
+    var list = []
+    for(var item of this.data.shopInfo){
+      list.push({
+        mallItemId: item.id,
+        itemCode: item.itemCode,
+        itemName: item.itemName,
+        specifications: item.specification,
+        orderQty: item.count
+      });
+    }
+    postData['salesOrderDetailList'] = list;
+    console.log(postData);
+    ajax.ajaxPOST({
+      url: 'salesOrder/saveSalesOrder',
+      data: postData,
+      success(data){
+        if (data.code == 1) {
+          wx.navigateTo({
+            url: '/pages/order/detail/orderDetail?id=' + data.data + '&payNow=1',
+          })
+        } else {
+          wx.showToast({
+            title: data.message,
+            icon: 'none'
+          })
+        }
+      },
+      fail(data) {
+        wx.showToast({
+          title: data.message,
+          icon: 'none'
+        })
+      },
+      showLoading: !0
+    });
+  },
+  
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    var vm = this;
+    var ids = options.ids;
+    if(!myUtil.isEmpty(ids)){
+      //从缓存里面拿出选择结算的商品
+      wx.getStorage({
+        key: 'selectShop',
+        success: function(res) {
+          vm.data.selectShop = res.data;
+        },
+      })
+      this.getOrderDetail(ids);
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: '获取商品失败',
+        showCancel: !1,
+        success: function(res) {
+          if(res.confirm){
+            wx.navigateBack();
+          }
+        },
+      })
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    //离开这个页面的时候要把缓存里的已选择结算的商品清空掉
+    wx.removeStorage({
+      key: 'selectShop',
+      success: function(res) {},
+    })
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

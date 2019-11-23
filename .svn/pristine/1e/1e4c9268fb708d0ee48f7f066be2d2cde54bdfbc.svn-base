@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "van-stepper": "../../compontent/stepper/index",
+    "van-swipe-cell": "../../compontent/swipe-cell/index"
+  }
+}

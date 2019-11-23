@@ -1,0 +1,166 @@
+// pages/search/search.js
+let timeId = null;
+var host = require('../../utils/http.js')
+const app = getApp();
+var ajax = require('../../utils/requestUtil.js')
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    showKeywords: false,
+    showResult: false,
+    value: '九',
+    shopList: '',
+    newList: [],
+    shopStatus: false
+  },
+
+  inputTxt() {
+    this.setData({
+      value: ''
+    })
+  },
+  searchInput(e) {
+    var than = this
+    if (!e.detail.value) {
+      than.setData({
+        showKeywords: false,
+      })
+    } else {
+      than.setData({
+        showKeywords: true,
+        value: e.detail.value,
+      })
+    }
+  },
+
+  searBtn(e) {
+    var than = this
+    var valTxt = than.data.value
+    console.log(valTxt)
+    if(!valTxt) {
+      return false
+    } else {
+      // ajax.ajaxGET({
+      //   url:'/sz-api/member/mallItemProgram/findMallItemProgramDetails',
+      //   header: {
+      //     eid: '91177C216DF1488F945B116E6933F97F'
+      //   },
+      //   method: 'POST',
+      //   data: {
+      //     id: '19',
+      //     name: valTxt
+      //   },
+      //   success(res) {
+      //     console.log(res)
+      //   }
+      // })
+      // console.log(1,valTxt)
+      wx.request({
+        url: host.host +'/sz-api/member/mallItemProgram/findMallItemProgramDetails',
+        header: {
+          eid: '91177C216DF1488F945B116E6933F97F'
+        },
+        method:'POST',
+        data:{
+          id: '19',
+          name: valTxt
+        },
+        success(res) {
+          res.data.data.forEach(item => {
+            item.count = 0;
+            item.isSelect = false
+          })
+          than.setData({
+            shopList: res.data.data,
+            shopStatus:true
+          })
+        }
+      })
+    }
+  },
+  add(e) {
+    var than = this
+    var index = e.currentTarget.dataset.index
+    var shopList =  than.data.shopList[index]
+    var newList = than.data.newList
+    var count = shopList.count
+    var crrid = newList.find(item =>item.id == shopList.id)
+    if(crrid) {
+      count = count + 1
+    } else {
+      count = count + 1
+      newList.push(shopList)
+    }
+    shopList.count = count
+    than.setData({
+      newList: newList
+    })
+    wx.setStorageSync('newlist',newList)
+    // console.log(newList, count)
+  },
+  
+  histroyBtn() {
+
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    var than = this
+    var newlist = wx.getStorageSync('newlist')
+    than.setData({
+      newList: newlist
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

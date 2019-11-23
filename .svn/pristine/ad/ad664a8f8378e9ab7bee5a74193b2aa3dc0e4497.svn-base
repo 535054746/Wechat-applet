@@ -1,0 +1,60 @@
+<!--pages/me/me.wxml-->
+<view class="container">
+  <view class="user-area">
+    <image class="circle-img" src="{{userInfo.avatarUrl}}" bindtap="viewImg"></image>
+    <view class="user-text">
+      <text class="nick-name">{{userInfo.nickName}}</text>
+      
+    </view>
+  </view>
+  
+  <view class="block-bg">
+    <view class="title-text">我的订单 <text class="sub-title-text" bindtap="goOrderList" data-status="">全部订单</text></view>
+    <view>
+    
+      <view class="float-left icon-area" bindtap="goOrderList" data-status="1">
+        <mp-badge style="display: {{badgeCount.DFK == 0 ? 'none' : 'block'}};" content="{{badgeCount.DFK}}" class="badge-position" />
+        <image class="icon-img" src="../../imgs/daifukuan.png"></image>
+        <view class="icon-text">待付款</view>
+      </view>
+
+      <view class="float-left icon-area" bindtap="goOrderList" data-status="2">
+        <mp-badge style="display: {{badgeCount.DFH == 0 ? 'none' : 'block'}};" content="{{badgeCount.DFH}}" class="badge-position" />
+        <image class="icon-img" src="../../imgs/daifahuo.png"></image>
+        <view class="icon-text">待发货</view>
+      </view>
+
+      <view class="float-left icon-area" bindtap="goOrderList" data-status="3">
+        <mp-badge style="display: {{badgeCount.YFH == 0 ? 'none' : 'block'}};" content="{{badgeCount.YFH}}" class="badge-position" />
+        <image class="icon-img" src="../../imgs/yifahuo.png"></image>
+        <view class="icon-text">已发货</view>
+      </view>
+
+      <view class="float-left icon-area" bindtap="goOrderList" data-status="4">
+        <image class="icon-img" src="../../imgs/yiwancheng.png"></image>
+        <view class="icon-text">已完成</view>
+      </view>
+
+    </view>
+    <view class="clear"></view>
+  </view>
+
+  <view class="block-bg">
+    <view class="title-text">我的服务</view>
+    <view>
+      <view class="float-left icon-area" bindtap="addressList">
+        <image class="icon-img" src="../../imgs/dizhi.png"></image>
+        <view class="icon-text">收货地址</view>
+      </view>
+      <view class="float-left icon-area" bindtap="contactHelp">
+        <image class="icon-img" src="../../imgs/kefu.png"></image>
+        <view class="icon-text">客服和帮助</view>
+      </view>
+      <view class="float-left icon-area" bindtap="aboutUs">
+        <image class="icon-img" src="../../imgs/guanyu.png"></image>
+        <view class="icon-text">关于</view>
+      </view>
+    </view>
+    <view class="clear"></view>
+  </view>
+</view>

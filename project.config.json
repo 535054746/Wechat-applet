@@ -1,0 +1,96 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"uglifyFileName": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.9.2",
+	"appid": "wx601f5d2fe069b577",
+	"projectname": "Suanzi",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "pages/mallorder/mallorder",
+					"pathName": "pages/mallorder/mallorder",
+					"query": "ids=202",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "pages/order/detail/orderDetail",
+					"pathName": "pages/order/detail/orderDetail",
+					"query": "id=283",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "pages/order/detail/logisticsInfo",
+					"pathName": "pages/order/detail/logisticsInfo",
+					"query": "id =283",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "pages/me/me",
+					"pathName": "pages/me/me",
+					"query": "id =283",
+					"scene": null
+				}
+			]
+		}
+	}
+}

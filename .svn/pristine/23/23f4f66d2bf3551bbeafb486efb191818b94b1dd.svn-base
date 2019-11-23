@@ -1,0 +1,86 @@
+/* pages/car/car.wxss */
+.bottomfixed{
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  width: 100%;
+  height: 120rpx;
+  line-height: 120rpx;
+  background: #f5f5f5;
+  z-index: 999;
+}
+ page{
+   background: white;
+ }
+.bottomfixed .inner{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+ 
+.bottomfixed .inner .chkAll {
+  font-size: 28rpx;
+  margin-right: 40rpx;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+ 
+.bottomfixed .inner .chkAll .allselect{
+  width:26px;
+  height:26px;
+}
+.allselect{
+  width:22px;
+  height:22px;
+  margin-right: 5px
+}
+ 
+.bottomfixed .inner .total{
+  font-size:28rpx;
+}
+.bottomfixed .inner .total em{color:#f60;}
+ 
+.btn-pay{
+  position: absolute;
+  right:0px;
+  background:#FF5E3A;
+  color:#fff;
+  padding:0 15px;
+  font-size: 28rpx;
+}
+
+
+.disabled{
+  background:#ccc;
+}
+ 
+.content{
+    width: 100%;
+    height:100%;
+    position: absolute;
+    left: 0;
+    font-size: 15px;
+    color:#999;
+    text-align:center;
+}
+.headerImg {
+  margin-left: 40px
+}
+
+.carts-select{
+  position: absolute;
+  top: 24px;
+  width:22px;
+  height:22px;
+  left: 10px;
+}
+.text{
+  display: flex;
+  color:red;
+  font-size: 18px;
+  justify-content: center;
+  align-items: center
+}

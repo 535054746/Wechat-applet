@@ -1,0 +1,353 @@
+// pages/order/detail/orderDetail.js
+const ajax = require('../../../utils/requestUtil.js');
+const myUtil = require('../../../utils/util.js');
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    id: '',//单据id
+    orderDetail:{},//单据详情
+    timeDownText: '',//倒计时文字
+    timeDownInterval: undefined,//倒计时Interval
+    timeDownCount: 0,//倒计时长,
+    payNow: 0//是否自动拉起微信支付
+  },
+
+  //取消订单提示框
+  cancelOrderConfirm() {
+    var vm = this;
+    wx.showModal({
+      title: '提示',
+      content: '确定要取消该订单吗？',
+      success(res){
+        if (res.confirm) {
+          vm.cancelOrder(false);
+        }
+      }
+    });
+  },
+
+  //取消订单
+  cancelOrder(auto) {
+    var vm = this;
+    ajax.ajaxPOST({
+      url: 'salesOrder/cancelOrder',
+      data: { id: vm.data.id },
+      success(data) {
+        if (data.code == 1) {
+          if (auto) {
+            vm.getOrderDetail();
+          } else {
+            wx.showToast({
+              title: '取消成功',
+            })
+            setTimeout(function () {
+              vm.getOrderDetail();
+            }, 500);
+          }
+        } else {
+          wx.showToast({
+            title: data.message,
+            icon: 'none'
+          })
+        }
+      },
+      fail(data) {
+        wx.showToast({
+          title: data.errMsg,
+          icon: 'none'
+        })
+      },
+      showLoading: !0
+    });
+  },
+
+  //复制单号
+  copyOrderNumber(e) {
+    wx.setClipboardData({
+      data: e.currentTarget.dataset.number,
+      success(res) {
+        wx.getClipboardData({
+          success(res) {
+          }
+        })
+      }
+    })
+  },
+
+  //设置支付倒计时
+  setPaymentTimeDown(){
+    var vm = this;
+    var orderDetail = this.data.orderDetail;
+    if(orderDetail.status != '0'){
+      return;
+    }
+    //单据创建时间
+    var createTime = new Date(orderDetail.orderTime).getTime();
+    //当前时间
+    var nowTime = new Date().getTime();
+    //相差毫秒数
+    var period = (nowTime - createTime);
+    //判断下单时间与当前时间是否相差15分钟以上
+    var isOverDue = (period > 900000);
+    if(isOverDue){//如果超时了就取消订单
+      this.cancelOrder(true);
+    }else{//创建支付倒计时
+      //设置倒计时的时长
+      this.data.timeDownCount = 900000- period;
+      //清除上一个倒计时interval
+      clearInterval(this.data.timeDownInterval);
+      //设置新的倒计时interval
+      vm.data.timeDownInterval = setInterval(function(){
+        vm.data.timeDownCount = vm.data.timeDownCount-1000;
+        //更新倒计时文字
+        vm.updateTimeDownText();
+      }, 1000);
+      //判断是否要自动拉起微信支付
+      if (this.data.payNow == 1) {
+        this.getPaymentInfo();
+        //只自动拉起一次，这边就要把payNow set为0
+        this.data.payNow = 0;
+      }
+    }
+  },
+
+  //更新页面的倒计时
+  updateTimeDownText(){
+    var timeDown = this.data.timeDownCount;
+    //倒计时长小于0就清除倒计时的interval，然后取消订单
+    if(timeDown < 0){
+      clearInterval(this.data.timeDownInterval);
+      this.cancelOrder(true);
+    }else{
+      var min = parseInt(timeDown / 60000);
+      var second = parseInt((timeDown % 60000) / 1000);
+      if (min < 10) {
+        min = "0" + min;
+      }
+      if (second < 10) {
+        second = "0" + second;
+      }
+      var timeDownText = min + ":" + second;
+      this.setData({
+        timeDownText: timeDownText
+      })
+    }
+
+  },
+
+  //获取单据详情
+  getOrderDetail(){
+    var vm = this;
+    ajax.ajaxPOST({
+      url: 'salesOrder/findSalesOrderById',
+      data: {id: vm.data.id},
+      success(data){
+        if (data.code == 1) {
+          //格式化下单时间 
+          data.data.orderTime = myUtil.formatTime(new Date(data.data.orderTime));
+          //格式化支付时间 
+          data.data.payTime = myUtil.formatTime(new Date(data.data.payTime));
+          vm.setData({
+            orderDetail: data.data
+          })
+          if(data.data.status == '0'){//如果订单状态是待付款，就执行下面的方法
+            vm.checkOrderPaymentStatus();
+          }
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: data.message,
+            showCancel: !1,
+            success(res) {
+              if (res.confirm) {
+                wx.navigateBack();
+              }
+            }
+          });
+        }
+        wx.stopPullDownRefresh();
+      },
+      fail(data) {
+        wx.showModal({
+          title: '提示',
+          content: data.errMsg,
+          showCancel: !1,
+          success(res) {
+            if (res.confirm) {
+              wx.navigateBack();
+            }
+          }
+        });
+        wx.stopPullDownRefresh();
+      },
+      showLoading: !0
+    });
+  },
+
+  //获取拉起微信支付所需要的信息
+  getPaymentInfo() {
+    var than = this
+    var openid = wx.getStorageSync('openid')
+    ajax.ajaxPOST({
+      url: '/sxfxcx/v1.0/xzx/appletPay',
+      data: {
+        orderid: than.data.id,
+        openid: openid
+      },
+      success(res) {
+        if (res.code == 1) {
+          than.pullUpWechatPayment(res.data);
+        } else {
+          wx.showToast({
+            title: res.message,
+            icon: 'none'
+          })
+        }
+      },
+      fail(res){
+        wx.showToast({
+          title: '获取支付信息失败，请重新点击支付按钮',
+          icon: 'none'
+        })
+      },
+      showLoading: !0,
+      loadingText: '获取支付信息中'
+    })
+  },
+
+  //拉起微信支付，对订单进行付款
+  pullUpWechatPayment(data) {
+    var vm = this;
+    wx.requestPayment({
+      timeStamp: data.payTimeStamp,
+      nonceStr: data.paynonceStr,
+      package: data.payPackage,
+      signType: data.paySignType,
+      paySign: data.paySign,
+      success(res) {
+        //支付成功就去重新获取单据详情
+        vm.getOrderDetail();
+      },
+      fail(res) {
+        if (res.errMsg == "requestPayment:fail cancel"){
+          wx.showToast({
+            title: '取消支付',
+            icon: 'none'
+          })
+        } else {
+          console.log(res.errMsg);
+          wx.showToast({
+            title: '支付失败，请重试',
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
+
+  //查询该订单的支付状态
+  checkOrderPaymentStatus() {
+    var vm = this;
+    var orderNumber = this.data.orderDetail.orderCode;
+    ajax.ajaxPOST({
+      url: '/sxfxcx/v1.0/xzx/query',
+      data: {
+        orderid: orderNumber
+      },
+      success(res) {
+        if(res.code == 1){
+          vm.getOrderDetail();
+        } else {
+          vm.setPaymentTimeDown();
+          // wx.showToast({
+          //   title: res.message,
+          //   icon: 'none'
+          // });
+        }
+        vm.setPaymentTimeDown();
+      },
+      fail(res) {
+        wx.showToast({
+          title: '查询失败',
+          icon: 'none'
+        });
+      },
+      showLoading: !0,
+      loadingText: '查询付款状态中...'
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    if(myUtil.isEmpty(options.id)){
+      wx.showModal({
+        title: '提示',
+        content: '获取订单失败！',
+        showCancel: !1,
+        success(res){
+          if(res.confirm){
+            wx.navigateBack();
+          }
+        }
+      });
+    }else{
+      this.data.payNow = options.payNow;
+      this.data.id = options.id;
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.getOrderDetail();
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+    clearInterval(this.data.timeDownInterval);
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    clearInterval(this.data.timeDownInterval);
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    this.checkOrderPaymentStatus()
+    this.getOrderDetail();
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

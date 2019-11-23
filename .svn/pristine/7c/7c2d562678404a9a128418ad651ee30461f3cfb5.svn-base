@@ -1,0 +1,39 @@
+<view class="contatin">
+  <view class="search">
+    <navigator url="/pages/search/search">
+      <view class="search-text">
+        <icon class="weui-icon-search_in-box search-icon" type="search" size="14"></icon>搜索
+      </view>
+    </navigator>
+  </view>
+
+  <view class="shopLeft rightTop" style="height:{{wheight}}px">
+    <scroll-view scroll-y="true"  bindscroll="scroll" wx:for="{{categoryList}}" wx:key="*this">
+      <view  class ='left_nav {{curCategoryId == item.categoryid ? "selected" : ""}}'  bindtap="leftNav" data-id="{{item.categoryid}}">{{item.categoryname}}</view>
+    </scroll-view>
+  </view>
+
+  <view class="shopRight right rightTop">
+    <view wx:for= "{{itemList}}" wx:key = "*this" class="flex shopList">
+      <view class="img_content">
+          <image src="{{item.picUrl}}" class="img" wx:if="{{item.picUrl}}" bindtap="viewImg" data-img="{{item.picUrl}}"></image>
+          <image src="../../imgs/img_placeholder.png" class="img" wx:else></image>
+      </view>
+
+      <view class="flex-row">
+          <view class= "flex-column shopName">
+            <text style="font-size: 14px"> {{item.itemName}}</text>
+            <text class="shopspecif"> 规格：{{item.specification}}</text>
+            <view class="shopPrice" style="padding-top:8px">￥{{item.unitPrice / 100}} / {{item.assistantUnit}}</view>
+          </view>
+      
+          <view class= "flex-column shopNum">
+
+            <view class="stepper">
+              <van-stepper v-model="{{item.qty}}" value="{{item.qty}}" step="1" min="0" data-index="{{index}}" data-id="{{item.id}}" integer bind:change="onItemChange" size="18"/>
+            </view>
+          </view>
+      </view>
+    </view>
+  </view>
+</view>

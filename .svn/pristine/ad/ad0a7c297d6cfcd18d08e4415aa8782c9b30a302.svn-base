@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <view class="longin" hidden="{{hasUserInfo}}">你还没有登录</view>
+    <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="getUserInfo"> 立即登录 </button>
+    <button wx:elif="{{!userid}}" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="getUserInfo">获取手机号</button>
+  </view>
+</view>

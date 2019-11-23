@@ -1,0 +1,108 @@
+//index.js
+//获取应用实例
+const app = getApp();
+const myUtil = require('../../utils/util.js');
+
+Page({
+  data: {
+    userInfo: {},
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    hasUserInfo: false,
+    userid:'',
+    step: 1
+  },
+  //事件处理函数
+  onLoad: function () {
+    var than = this
+    var userid =wx.getStorageSync('userid')
+    than.setData({
+      userid: userid
+    })
+    if (app.globalData.userInfo) {
+      than.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true,
+      })
+    } else {
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          than.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true,
+          })
+        }
+      })
+      if (userid) {
+        if (myUtil.isEmpty(app.globalData.userInfo)){
+          this.setData({
+            step: 2
+          })
+        } else {
+          wx.switchTab({
+            url: '/pages/shop/shop',
+          })
+        }
+      }
+    } 
+  },
+
+  getUserInfo: function (e) {
+    var than = this
+    if (e.detail.errMsg == "getUserInfo:fail auth deny") {
+      wx.showModal({
+        title: '提示',
+        content: '您已拒绝授权，请重新点击并授权！',
+        showCancel: !1
+      })
+      return;
+    }
+    else if (e.detail.errMsg == "getUserInfo:ok") {
+      app.globalData.userInfo = e.detail.userInfo
+      wx.switchTab({
+        url: '/pages/shop/shop',
+      })
+    }
+  },
+
+  getPhoneNumber(e) {
+    var than =this
+    var openid = wx.getStorageSync('openid')
+    var sesskey = wx.getStorageSync('sesskey')
+    if (e.detail.errMsg == "getPhoneNumber:ok") {
+        than.setData({
+          phone: true
+        })
+      wx.request({
+        url: 'http://192.168.1.118/sz-api/api/wechat/login',
+        data: {
+          openid: openid,
+          encrypted_data: e.detail.encryptedData,
+          iv: e.detail.iv,
+          session_key: sesskey
+        },
+        method: 'POST',
+        success(res) {
+          if(res.data.code == 1){
+            if (myUtil.isEmpty(app.globalData.userInfo)){
+              than.setData({
+                step: 2
+              })
+            } else {
+              wx.switchTab({
+                url: '/pages/shop/shop',
+              })
+            }
+          }
+        }
+      })
+    } 
+    else if (e.detail.errMsg =="getPhoneNumber:fail user deny") {
+      wx.showModal({
+        title: '提示',
+        content: '您已拒绝授权，请重新点击并授权！',
+        showCancel: !1
+      })
+    }
+  }
+})

@@ -1,0 +1,55 @@
+<view>
+
+    <view>
+      <view wx:if="{{cartList.length<=0}}" class="text">
+      <image src="../../imgs/empty_icon.png"></image>
+        <view>你暂时还没有商品，快去添加吧</view>
+        <!-- <button size="mini" bindtap="">添加商品</button> -->
+        <navigator url="/pages/shop/shop" open-type="switchTab" class="carSwitchBtn">
+          去购买商品
+        </navigator>
+      </view>
+
+
+      <view wx:else class="carshopBott">
+        <view wx:for= "{{cartList}}" wx:key = "*this" class="flex shopList">
+            <view class="carts-radio">
+              <image class="carts-select" bindtap="bindCheckbox" data-index="{{index}}" src="{{item.isSelect?   '/imgs/select.png':'/imgs/n_select.png'}}" />
+            </view>
+            <view class="img_content">
+            <image src="{{item.picUrl}}" class="img" wx:if="{{item.picUrl}}"></image>
+            <image src="../../imgs/img_placeholder.png" class="img" wx:else></image>
+            </view>
+
+            <view class="flex-row">
+              <view class= "flex-column">
+                  <text style="font-size: 16px"> {{item.itemName}}</text>
+                  <text class="shopspecif"> 规格：{{item.specification}}</text>
+              </view>
+
+              <view class= "flex-column carName">
+                  <view class="shopPrice">￥{{item.unitPrice / 100}}元 / {{item.warehouseUnit}}</view>
+                  <view class="stepper carSte">
+                    <van-stepper v-model="{{item.qty}}" value="{{item.qty}}" step="1" min="0" data-index="{{index}}" data-id="{{item.id}}" integer async-change bind:change="onItemChange" />
+                  </view>
+              </view>
+            </view>
+          </view>
+      </view>
+      
+    </view>
+
+<view class="carts-footer">  
+    <view class="bottomfixed">  
+      <view class="inner">  
+        <view class="chkAll" bindtap="bindSelectAll">
+        <image class="allselect" src="{{selectAllStatus?'/imgs/select.png':'/imgs/n_select.png'}}" /> 
+          <text>全选</text>  
+        </view>  
+        <view class="total">合计：<em>￥{{totalMoney}}</em></view>  
+        <view wx:if="{{totalCount > 0}}" class="btn-pay" bindtap='bindjiesuan'>去结算({{totalCount}})</view>  
+        <view wx:else class="btn-pay disabled">请勾选商品</view>  
+    </view>  
+  </view> 
+  </view>
+</view>

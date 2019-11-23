@@ -1,0 +1,72 @@
+.contatin{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+}
+.header{
+  height: 70px;
+  width: 97%;
+  background: white;
+  margin: 8px auto;
+  border-radius: 5px;
+  display: flex;
+  align-items: center
+}
+.address{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 16px;
+  position: relative;
+}
+.img{ 
+  width: 25px;
+  height: 25px;
+}
+.right{
+  display: inline-block;
+  margin-right: 0px;
+}
+.content{
+  width: 97%;
+  background: white;
+  margin: 3px auto;
+  border-radius: 5px;
+  position: relative;
+}
+.shopInfo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 14px;
+  border: 1px solid #f4f4f4;
+  width: 94%;
+  margin: 10px auto;
+  border-radius: 5px 
+}
+.shopInfo_left{
+  padding-left: 4px;
+  margin-top: 10px;
+  width: 70px;
+}
+.shopInfo_left image {
+  width: 100%;
+  height: 60px;
+  border-radius: 100%
+}
+.shopInfo_right {
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.zongmonery{
+  /* margin-right: 0; */
+  position: absolute;
+  right: 10px
+}

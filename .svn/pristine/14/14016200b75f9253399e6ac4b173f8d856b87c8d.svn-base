@@ -1,0 +1,96 @@
+//index.js
+//获取应用实例
+const app = getApp()
+
+Page({
+  data: {
+    userInfo: {},
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    hasUserInfo: false,
+    userid:''
+  },
+  //事件处理函数
+  onLoad: function () {
+    var than = this
+    var userid =wx.getStorageSync('userid')
+    than.setData({
+      userid: userid
+    })
+    if(userid) {
+      wx.switchTab({
+        url: '/pages/shop/shop',
+      })
+    }
+    if (app.globalData.userInfo) {
+      than.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true,
+      })
+    } else if (than.data.canIUse) {
+      app.userInfoReadyCallback = res => {
+        than.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true,
+        })
+      }
+    } else {
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          than.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true,
+          })
+        }
+      })
+    } 
+  },
+
+  getUserInfo: function (e) {
+    var than = this
+    if (e.detail.errMsg == "getUserInfo:fail auth deny") {
+      than.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: false
+      })
+    }
+    else if (e.detail.errMsg == "getUserInfo:ok") {
+      than.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      })
+    }
+    app.globalData.userInfo = e.detail.userInfo
+  },
+
+  getPhoneNumber(e) {
+    var than =this
+    var openid = wx.getStorageSync('openid')
+    var sesskey = wx.getStorageSync('sesskey')
+    if (e.detail.errMsg == "getPhoneNumber:ok") {
+        than.setData({
+          phone: true
+        })
+      wx.request({
+        url: 'http://192.168.1.118/sz-api/api/wechat/login',
+        data: {
+          openid: openid,
+          encrypted_data: e.detail.encryptedData,
+          iv: e.detail.iv,
+          session_key: sesskey
+        },
+        method: 'POST',
+        success(res) {
+          wx.switchTab({
+            url: '/pages/shop/shop',
+          })
+        }
+      })
+    } 
+    else if (e.detail.errMsg =="getPhoneNumber:fail user deny") {
+      wx.showToast({
+        title: '拒绝',
+      })
+    }
+  }
+})

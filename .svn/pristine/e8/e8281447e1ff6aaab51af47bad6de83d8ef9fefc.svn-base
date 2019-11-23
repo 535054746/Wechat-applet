@@ -1,0 +1,34 @@
+.contatin{
+  margin: 10px 0 0 10px;
+  width:100%;
+  /* position: relative; */
+}
+
+.info_right{
+  background: white;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-right: 20px;
+  width: 100%;
+}
+.rightCard{
+  padding: 10px
+}
+
+.block{
+  border-bottom: 1px solid #f3f3f3;
+  padding: 8px;
+}
+.value{
+  margin-left: 10px;
+}
+.call{
+  padding: 0 5px;
+  border-radius: 5px;
+  color: #38a3ff;
+  /* border: 1px solid #38a3ff; */
+}
+.oddNum{
+  font-weight: bold;
+  margin-left: 10px;
+}

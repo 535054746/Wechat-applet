@@ -1,0 +1,20 @@
+<!--pages/addressList/addressList.wxml-->
+<view class="container" style="margin-bottom: 60px;">
+  <view wx:for="{{addressList}}" wx:item="item" wx:for-index="index" wx:key="*this">
+    <view class="item-block display-flex" bindtap="selectItem" data-index="{{index}}" data-checked="{{item.checked}}">
+      <image hidden="{{mode==0}}" class="icon-img select-img" src="../../imgs/{{item.checked?'select':'n_select'}}.png" />
+      <view style='{{mode==1? "margin-left:25px" : " "}}' class="addressList">
+        <view class="address-text flex">
+           <view style="width:79%">{{item.address}}</view>
+           <view class="default-address" hidden="{{item.status == 0}}">默认</view>
+        </view>
+        <view class="contact-text">{{item.name}}{{item.phone}} </view>
+      </view>
+      <image class="icon-img edit-img" src="../../imgs/bi.png" mode="aspectFit" catchtap="editItem" data-id="{{item.id}}" />
+    </view>
+  </view>
+</view>
+
+<view class="bottom-block">
+  <view class="common-bottom-btn" bindtap="addAddress">新增收货地址</view>
+</view>

@@ -1,0 +1,10 @@
+/* pages/me/me.wxss */
+.user-area{
+  padding: 5px 10px;
+}
+
+.user-area text{
+  font-weight: bold;
+  margin-left: 10px;
+  line-height: 60px;
+}

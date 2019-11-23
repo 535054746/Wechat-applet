@@ -1,0 +1,45 @@
+<view class="main">
+    <view class="search-box">
+        <input class="search-input" placeholder="请输入商品名称" value="{{value}}" bindinput="searchInput" placeholder-style="font-size: 14px"/>
+        <icon class="weui-icon-search_in-box search-icon" type="search" size="14" ></icon>
+        <icon class="cancel" type="cancel" size="14" bindtap="inputTxt" wx:if="{{showKeywords}}"></icon>
+        <view class="search-btn" bindtap="searBtn" size="mini" wx:if="{{!shopStatus}}">搜索</view>
+        <view class="search-img" size="mini" wx:else>
+          <view class="txt">
+          {{carlength}}
+          </view>
+          <image src="../../imgs/gouwuno.png" bindtap="gwc"></image>
+        </view>
+    </view>
+    <view class="search_list" wx:if="{{shopStatus}}">
+        <view class="search_zs" wx:for="{{shopList}}" wx:key="*this">
+          <!-- <image src="{{item.picUrl}}" class="shopImg"></image> -->
+          <image src="../../imgs/img_placeholder.png" class="shopImg"></image>
+          <view class="search_info">
+            <text>{{item.itemName}}{{item.specification}}</text>
+          </view>
+          <view class="search_price">
+            <text>￥{{item.unitPrice /100}}</text>
+          </view>
+          <view>
+            <image src="../../imgs/add.png" class="add" bindtap="add" data-index="{{index}}"></image>
+          </view>
+        </view>
+    </view>
+
+    <view wx:else class="history_search">
+      <view class="his_title">
+        <view>历史搜索</view> 
+        <view><icon type="cancel" size="25" bindtap="clearhistory" wx:if="{{clear}}"/></view>
+      </view>
+      <view class="history">
+        <view class="history_text" wx:for="{{history}}" wx:key="index" data-text="{{item}}" bindtap="keywordHandle" wx:if="{{clear}}">
+            {{item}}
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{stashop}}"  class="noShop">
+        暂无此商品
+    </view>
+</view>

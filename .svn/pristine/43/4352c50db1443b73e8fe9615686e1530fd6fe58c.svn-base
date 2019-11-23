@@ -1,0 +1,37 @@
+<view class="content">
+  <view class="order_headr">
+    <view class="{{carr == 5 ? 'select' : ''}}" bindtap="qunbu" data-index="5">全部</view>
+    <view class="{{carr == 1 ? 'select' : ''}}" bindtap="daizf" data-index="1">待付款</view>
+    <view class="{{carr == 2 ? 'select' : ''}}" bindtap="daifh" data-index="2">待发货</view>
+    <view class="{{carr == 3 ? 'select' : ''}}" bindtap="yifah" data-index="3">已发货</view>
+    <view class="{{carr == 4 ? 'select' : ''}}" bindtap="yiwc"  data-index="4">已完成</view>
+  </view>
+  <view>
+      <view class="no_order" wx:if="{{emptData}}">
+         <image src="../../../imgs/empty_icon.png"></image>
+        <view>你还没有相关订单</view>
+      </view>
+
+      <view  wx:else>
+        <view wx:for="{{orderjiaData}}" class="order" wx:key="*this">
+            <view class="order_listheader">
+              <view>{{item.time}}</view>
+              <view>待支付</view>
+            </view>
+
+            <view class="order_listaddress"><text>收货地址：</text>{{item.address}}</view>
+
+            <view class="order_price">
+              <text class="order_priceNum">共{{item.num}}件 实付:</text>
+              <text class="order_priceMon">￥{{item.price}}</text>
+            </view>
+
+            <view class="order_btn" wx:if="{{carr == 1}}">待付款</view>
+            <view class="order_btn" wx:if="{{carr == 2}}">待发货</view>
+            <view class="order_btn" wx:if="{{carr == 3}}">已发货</view>
+            <view class="order_btn" wx:if="{{carr == 4}}">已完成</view>
+            <view class="order_btn" wx:if="{{carr == 5}}">再来一单</view>
+        </view>
+      </view>
+  </view>
+</view>

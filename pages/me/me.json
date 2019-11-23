@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "mp-badge" : "../../compontent/badge/badge"
+  },
+  "enablePullDownRefresh": true
+}

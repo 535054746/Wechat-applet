@@ -1,0 +1,193 @@
+// pages/shop/shop.js
+var host = require('../../utils/http.js')
+var ajax = require('../../utils/requestUtil.js')
+
+Page({
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    list: [],
+    status: true,
+    newlist: [],
+    carlist: [],
+    wheight: 0,
+    itemData: [
+      { categoryName: '熟食',id: 0 },
+      { categoryName: '凉食', id: 1 },
+      { categoryName: '半熟食', id: 2 },
+      { categoryName: '半凉食', id: 3},
+      { categoryName: '狗粮', id: 4 },
+      { categoryName: '猫粮', id: 5 },
+      { categoryName: '鸡粮', id: 6 },
+      { categoryName: '鸭粮', id: 7 },
+      { categoryName: '狗粮', id: 8 },
+      { categoryName: '猫粮', id: 9 },
+      { categoryName: '鸡粮', id: 10 },
+      { categoryName: '鸭粮', id: 11 },
+      { categoryName: '狗粮', id: 12 },
+      { categoryName: '猫粮', id: 13 },
+      { categoryName: '鸡粮', id: 14 },
+      { categoryName: '鸭粮', id: 15 },
+      { categoryName: '小零食', id: 16 },
+    ],
+    crr: ''
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    var than = this
+    than.shopData();
+    wx.getSystemInfo({
+      success: function(res) {
+        than.setData({
+          wheight: res.windowHeight
+        })
+      },
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  shopData:function() {
+    var than = this
+    wx.request({
+      url: host.host + '/base/mallItemProgram/findMallItemProgramAndDetails',
+      data: {
+        id: '19',
+        loginId: 'bc596a00-f839-4a6f-abfd-28e02a8363be'
+      },
+      success(res) {
+        res.data.data.mallItemProgramDetailsList.forEach(item => {
+          item.count = 0;
+          item.isSelect = false
+        })
+        than.setData({
+          list: res.data.data.mallItemProgramDetailsList
+        })
+
+      }
+      
+    })
+  },
+
+  leftNav: function(e) {
+    var than = this
+    var leftId = e.currentTarget.dataset.id
+    console.log(leftId)
+    than.setData({
+      crr: leftId
+    })
+
+  },
+
+  add: function(e) {
+    const index = e.currentTarget.dataset.index;
+    let list = this.data.list;
+    let count = list[index].count;
+    count = count + 1;
+    list[index].count = count;
+    this.setData({
+      list: list
+    });
+  },
+
+
+  sub: function (e) {
+    const index = e.currentTarget.dataset.index;
+    let list = this.data.list;
+    let count = list[index].count;
+    count = count - 1;
+    list[index].count = count;
+    this.setData({
+      list: list
+    });
+  },
+
+  bindIptCartNum: function (e) {
+    const index = e.currentTarget.dataset.index;
+    var num = e.detail.value;
+    let list = this.data.list;
+    list[index].count = num;
+    this.setData({
+      list: list
+    });
+  },
+
+
+  onReady: function () {
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () { 
+    var than = this
+    var idx = wx.getStorageSync('id')
+    var list = wx.getStorageSync('list')
+    var shopList = than.data.list;
+    for(let i = 0;i<shopList.length;i++) {
+      for(let j=0;j<list.length;j++) {
+       if(shopList[i].id === list[j].id) {
+         shopList[i].count = list[j].count;
+         break
+       } else {
+         shopList[i].count = 0
+       }
+      }
+    }
+    than.setData({
+      list: shopList
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+    var than = this
+    var carData = than.data.list
+    var newlits = than.data.newlist
+    // console.log(than.data.carlist)
+    // var carlist = wx.getStorageSync('newlist')
+    // console.log(carlist)
+    for(var i = 0; i<carData.length; i++ ) {
+      if(carData[i].count> 0) {
+        newlits.push(carData[i])
+      }
+    }
+    wx.setStorageSync('newlist', newlits)
+    than.data.newlist = []
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

@@ -1,0 +1,57 @@
+<view class="content">
+  <view class="order_headr">
+    <view class="{{status ==  '' ? 'select' : ''}}" bindtap="selectStatus" data-status="">全部</view>
+    <view class="{{status == '0' ? 'select' : ''}}" bindtap="selectStatus" data-status="0">待付款</view>
+    <view class="{{status == '1' ? 'select' : ''}}" bindtap="selectStatus" data-status="1">待发货</view>
+    <view class="{{status == '2' ? 'select' : ''}}" bindtap="selectStatus" data-status="2">已发货</view>
+    <view class="{{status == '3' ? 'select' : ''}}" bindtap="selectStatus"  data-status="3">已完成</view>
+  </view>
+
+  <view style="margin-top: 50px">
+      <view class="no_order" wx:if="{{orderList == null || orderList.length == 0}}">
+         <image src="../../imgs/empty_icon.png"></image>
+        <view>你还没有相关订单</view>
+        <navigator url="/pages/shop/shop" open-type="switchTab" class="carSwitchBtn">
+          去购买商品
+        </navigator>
+      </view>
+
+      <view  wx:else>
+        <view wx:for="{{orderList}}" class="order" wx:key="*this" bindtap="orderDetail" data-id="{{item.id}}">
+            <view class="order_listheader">
+              <view>{{item.orderTime}}</view>
+              <view wx:if="{{item.status == 0}}">待付款</view>
+              <view wx:if="{{item.status == 1}}">待发货</view>
+              <view wx:if="{{item.status == 2}}">已发货</view>
+              <view wx:if="{{item.status == 3}}">已完成</view>
+              <view wx:if="{{item.status == 10}}">已取消</view>
+            </view>
+
+            <view class="order_listaddress">
+                <view class="order_left">
+                  <view>收货人</view>
+                  <view>手机号码</view>
+                  <view>收货地址</view>
+                </view>
+                <view class="order_right">
+                  <view>{{item.receiptName}}</view>
+                  <view>{{item.receiptPhone}}</view>
+                  <view>{{item.receiptAddress}}</view>
+                </view>
+            </view>
+            <view wx:if="{{item.status == 3}}" class="order_btn">
+              <view>
+              </view>
+              <view  class="zailai_btn">再来一单</view>
+            </view>
+
+            <view class="order_price">
+              <text class="order_priceNum" wx:if="{{item.status == 0}}">应付:</text>
+              <text class="order_priceNum" wx:else>实付:</text>
+              <text class="order_priceMon" >￥{{item.amount / 100}}</text>
+            </view>
+
+        </view>
+      </view>
+  </view>
+</view>

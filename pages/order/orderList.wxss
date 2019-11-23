@@ -1,0 +1,103 @@
+
+.order_headr{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height:40px;
+  background: white;
+  line-height: 40px;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  font-size: 15px;
+}
+.order_headr view:first-child {
+  margin-left: 10px;
+  
+}
+.order_headr view:last-child{
+  margin-right: 10px
+}
+.select {
+  border-bottom: 2px solid #33b0ff;
+}
+.no_order{
+  display: flex;
+  justify-content: center;
+  margin-top: 25%;
+  color: #999;
+  flex-direction: column;
+  align-items: center;
+}
+.no_order image{
+  width: 200rpx;
+  height: 260rpx;
+  display: block;
+  margin-bottom: 10px;
+}
+.order{
+  width: 95%;
+  /* height: 191px; */
+  background: white;
+  margin: 10px auto 0;
+  border-radius: 5px;
+  position: relative;
+  box-sizing: border-box;
+}
+.order_listheader{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #F2F2F2;
+  color: #969696
+}
+.order_listheader :nth-child(2) {
+  color: #33b0ff;
+  font-size: 14px;
+}
+.order_listaddress {
+  padding: 15px 0 15px 10px;    
+  box-sizing: border-box;
+  color: #969696;
+  font-size: 14px;
+  display: flex;
+}
+.order_left{
+  width: 150px;
+}
+.order_right{
+  width: 480px
+}
+.order_price{
+  position: absolute;
+  right: 10px;
+  top: 52px
+}
+.order_priceNum{
+  font-size: 14px
+}
+.order_priceMon {
+  font-size: 18px;
+  font-weight: bold;
+  color:red;
+}
+.order_btn{
+  color: white;
+  font-size: 14px;
+  border-top: 1px solid #F2F2F2;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between
+}
+.zailai_btn{
+  background: #33b0ff;
+  width: 65px;
+  border-radius:5px;
+  padding: 6px;
+  margin: 5px 10px 5px 10px;
+  text-align: center;
+}
+.orderTime{
+  font-size: 13px;
+  color: black;
+}
