@@ -118,6 +118,11 @@ html{
   font-size:13px;
   color: red
 }
+.statusPrice{
+  text-align: left;
+  margin-right:10px;
+  font-size:11px;
+}
 .img_content{
   width: 80px;
   height: 80px;

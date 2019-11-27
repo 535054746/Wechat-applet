@@ -23,7 +23,8 @@
               <view class="flex-column pad"> 
                 <text style="font-size: 14px">{{item.itemName}}</text>
                 <text class="shopspecif" style="width:168px">规格：{{item.specification}}</text>
-                <view class="shopPrice shopRight" style="padding-top:8px">￥{{item.unitPrice / 100}}元 / {{item.assistantUnit}}</view>
+                <view class="shopPrice shopRight" style="padding-top:8px" wx:if="{{userInfo}}">￥{{item.unitPrice / 100}}元 / {{item.assistantUnit}}</view>
+                <view class="statusPrice shopRight" style="padding-top:8px" wx:else>价格仅登录可见</view>
               </view>
 
               <view class="flex-column carName">
@@ -53,8 +54,8 @@
     </view>
 
     <view wx:if="{{stashop}}"  class="noShop" hidden="{{!showKeywords}}">
-        <image src="../../imgs/empty_icon.png"></image>
-        <view style="margin-top:10px">{{errorMsg}}</view>
+        <image src="../../imgs/sousuokong.png"></image>
+        <view style="margin-top:10px;color:#aaa">{{errorMsg}}</view>
         <navigator url="/pages/shop/shop" open-type="switchTab" class="carSwitchBtn">
           去购买商品
         </navigator>

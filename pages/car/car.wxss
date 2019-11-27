@@ -38,6 +38,7 @@
  
 .bottomfixed .inner .total{
   font-size:28rpx;
+  padding-left: 10px; 
 }
 .bottomfixed .inner .total em{color:red;}
  
@@ -79,15 +80,13 @@
   margin-left: 10px;
 }
 .text{
-  position: absolute;
   display: flex;
   color:#ddd;
   font-size: 18px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 15%;
-  left: 24%;
+  margin-top: 35%;
 }
 .text image{
   width: 200rpx;
@@ -163,4 +162,15 @@
   text-align: center;
   font-size: 15px;
   color: #38a3ff;
+}
+.chkAll{
+  font-size: 28rpx;
+  margin-right: 40rpx;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width:70px;
+  height:20px;
+  padding-left: 8px;
 }

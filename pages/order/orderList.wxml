@@ -10,7 +10,7 @@
 
   <view style="margin-top: 50px">
       <view class="no_order" wx:if="{{orderList == null || orderList.length == 0}}">
-         <image src="../../imgs/empty_icon.png"></image>
+         <image src="../../imgs/meiyoudingdan.png"></image>
         <view>你还没有相关订单</view>
         <navigator url="/pages/shop/shop" open-type="switchTab" class="carSwitchBtn">
           去购买商品

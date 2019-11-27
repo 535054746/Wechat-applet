@@ -18,6 +18,7 @@ Page({
     history: [],
     stashop: false,
     errorMsg: '',//错误信息
+    userInfo: ''
   },
 
   inputTxt() {
@@ -156,6 +157,11 @@ Page({
   },
 
   onItemChange: function (e) {
+    if (myUtil.isEmpty(this.data.userInfo)) {
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
+    } else {
     const index = e.currentTarget.dataset.index;
     const id = e.currentTarget.dataset.id;
     var qty = e.detail;
@@ -201,6 +207,7 @@ Page({
       })
     }
     this.setData({cartList: cartList})
+    }
   },
 
   /**
@@ -234,6 +241,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var than = this
+    wx.getStorage({
+      key: 'userInfo',
+      success: function (res) {
+        than.setData({
+          userInfo: res.data
+        })
+      },
+    })
   },
 
   /**

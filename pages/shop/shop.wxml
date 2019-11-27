@@ -12,13 +12,14 @@
     </scroll-view>
   </view>
 
-
+  <view class="shopRight right rightTop">
+    
   <view wx:if="{{itemList.length == 0}}" class="shopTost">
-      <view><image src="../../imgs/empty_icon.png"></image></view>
-      <view style="font-size:14px">还没有商品上架</view>
+      <view><image src="../../imgs/meiyoushangpin.png"></image></view>
+      <view style="font-size:16pxc;color: #aaa" class="sptext">还没有商品上架</view>
   </view>
 
-  <view class="shopRight right rightTop" wx:else>
+
     <view wx:for= "{{itemList}}" wx:key = "*this" class="flex shopList">
       <view class="img_content">
           <image src="{{item.picUrl}}" class="img" wx:if="{{item.picUrl}}" bindtap="viewImg" data-img="{{item.picUrl}}"></image>
@@ -29,11 +30,13 @@
           <view class= "flex-column shopName">
             <text style="font-size: 14px"> {{item.itemName}}</text>
             <text class="shopspecif"> 规格：{{item.specification}}</text>
-            <view class="shopPrice" style="padding-top:8px">￥{{item.unitPrice / 100}} / {{item.assistantUnit}}</view>
+
+
+            <view class="shopPrice" style="padding-top:8px" wx:if="{{userInfo}}">￥{{item.unitPrice / 100}} / {{item.assistantUnit}}</view>
+            <view  class="statusPrice" style="padding-top:8px" wx:else>价格仅登录可见</view>
           </view>
       
           <view class= "flex-column shopNum">
-
             <view class="stepper">
               <van-stepper v-model="{{item.qty}}" value="{{item.qty}}" step="1" min="0" data-index="{{index}}" data-id="{{item.id}}" integer bind:change="onItemChange" size="18"/>
             </view>

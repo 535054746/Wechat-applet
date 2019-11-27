@@ -14,6 +14,7 @@ Page({
     categoryList: '',//商品分类列表
     itemList: [],//商品列表
     curCategoryId: '',//当前选中的商品分类,
+    userInfo: '' //缓存中的用户信息
   },
 
   /**
@@ -125,6 +126,11 @@ Page({
   
 
   onItemChange: function (e) {
+    if (myUtil.isEmpty(this.data.userInfo)) {
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
+    } else {
     //获取当前商品的下标
     const index = e.currentTarget.dataset.index;
     //获取当前商品的id
@@ -172,6 +178,7 @@ Page({
         text: ''+cartList.length,
       })
     }
+    }
   },
 
   /**
@@ -186,8 +193,9 @@ Page({
     
   onShow: function () {
     // 获取最新的购物车的信息
+    var than = this
     var cartList = wx.getStorageSync('cartList');
-    var itemList = this.data.itemList;
+    var itemList = than.data.itemList;
     if (myUtil.isEmpty(cartList)){
       cartList = [];
       wx.removeTabBarBadge({
@@ -199,8 +207,16 @@ Page({
         text: ''+cartList.length,
       });
     }
-    this.data.cartList = cartList;
-    this.getItemCategoryList(); 
+    than.data.cartList = cartList;
+    than.getItemCategoryList();
+    wx.getStorage({
+      key: 'userInfo',
+      success: function (res) {
+        than.setData({
+          userInfo: res.data
+        })
+      },
+    })
   },
 
   /**

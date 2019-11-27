@@ -44,7 +44,7 @@ button:not([size='mini']) {
   font-size: 13px;
   color:gray;
   position: absolute;
-  top: 36%;
+  top: 38%;
   left: 50%;
   transform: translateX(-50%)
 }

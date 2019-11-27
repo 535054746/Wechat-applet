@@ -54,43 +54,7 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": [
-				{
-					"id": 0,
-					"name": "pages/mallorder/mallorder",
-					"pathName": "pages/mallorder/mallorder",
-					"query": "ids=202",
-					"scene": null
-				},
-				{
-					"id": 1,
-					"name": "pages/index/index",
-					"pathName": "pages/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 2,
-					"name": "pages/order/detail/orderDetail",
-					"pathName": "pages/order/detail/orderDetail",
-					"query": "id=283",
-					"scene": null
-				},
-				{
-					"id": 3,
-					"name": "pages/order/detail/logisticsInfo",
-					"pathName": "pages/order/detail/logisticsInfo",
-					"query": "id =283",
-					"scene": null
-				},
-				{
-					"id": 4,
-					"name": "pages/me/me",
-					"pathName": "pages/me/me",
-					"query": "id =283",
-					"scene": null
-				}
-			]
+			"list": []
 		}
 	}
 }

@@ -85,14 +85,22 @@ page{
   height: 100%;
 }
 .shopTost{
-  position: absolute;
-  top: 45%;
-  left: 53%;
-  transform: translate(-50%,-50%)
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 35%;
 }
 .shopTost image {
   width: 200rpx;
   height: 260rpx;
   display: block;
   margin-bottom: 10px;
+}
+.sptext{
+  /* position: absolute;
+  left: -5px;
+  bottom: -1px;
+  width: 113px; */
 }
